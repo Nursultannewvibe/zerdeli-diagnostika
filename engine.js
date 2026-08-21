@@ -226,6 +226,8 @@ function boot() {
 
   /* ================= движок ================= */
 
+  const LETTERS = "ABCDEFGHIJ";
+
   const CMP = {
     ru:["Значение А больше","Значение В больше","Значения равны","Данных недостаточно"],
     kz:["А мәні үлкен","В мәні үлкен","Мәндер тең","Дерек жеткіліксіз"]
@@ -429,7 +431,7 @@ function boot() {
 
     const buttons = opts.map(function(o,i){
       return '<button class="opt" type="button" data-i="' + i + '" aria-pressed="' + (picked===i) + '">'
-           + '<kbd>' + "ABCD"[i] + '</kbd><span>' + o + '</span></button>';
+           + '<kbd>' + LETTERS[i] + '</kbd><span>' + o + '</span></button>';
     }).join("");
 
     $("#q-wrap").innerHTML = '<p class="qtag">' + D.blocks[q.block][lang] + '</p>'
@@ -460,7 +462,9 @@ function boot() {
 
   document.addEventListener("keydown", e=>{
     if(!$("#s-test").classList.contains("on")) return;
-    const map = {"1":0,"2":1,"3":2,"4":3,"a":0,"b":1,"c":2,"d":3,"ф":0,"и":1,"с":2,"в":3};
+    const map = {"1":0,"2":1,"3":2,"4":3,"5":4,"6":5,
+      "a":0,"b":1,"c":2,"d":3,"e":4,"f":5,
+      "ф":0,"и":1,"с":2,"в":3,"у":4,"а":5};
     const k = e.key.toLowerCase();
     if(k in map){ const b = $("#q-wrap").querySelectorAll(".opt")[map[k]]; if(b){ b.click(); e.preventDefault(); } }
     else if(e.key === "Enter" && !$("#q-next").disabled){ step(); e.preventDefault(); }
