@@ -1,0 +1,70 @@
+{
+ "subjects": [
+  {
+   "id": "matematika-5-klass",
+   "file": "matematika-5-klass.json",
+   "name": "Математика",
+   "nameKz": "Математика",
+   "ready": true,
+   "meta": {
+    "ru": "5 класс · 20 задач · 25 минут",
+    "kz": "5 сынып · 20 тапсырма · 25 минут"
+   }
+  },
+  {
+   "id": "kolichestvennye",
+   "file": "kolichestvennye.json",
+   "name": "Количественные характеристики",
+   "nameKz": "Сандық сипаттама",
+   "ready": false,
+   "meta": {
+    "ru": "",
+    "kz": ""
+   }
+  },
+  {
+   "id": "estestvoznanie",
+   "file": "estestvoznanie.json",
+   "name": "Естествознание",
+   "nameKz": "Жаратылыстану",
+   "ready": false,
+   "meta": {
+    "ru": "",
+    "kz": ""
+   }
+  },
+  {
+   "id": "kazakh",
+   "file": "kazakh.json",
+   "name": "Казахский язык",
+   "nameKz": "Қазақ тілі",
+   "ready": false,
+   "meta": {
+    "ru": "",
+    "kz": ""
+   }
+  },
+  {
+   "id": "russian",
+   "file": "russian.json",
+   "name": "Русский язык",
+   "nameKz": "Орыс тілі",
+   "ready": false,
+   "meta": {
+    "ru": "",
+    "kz": ""
+   }
+  },
+  {
+   "id": "english",
+   "file": "english.json",
+   "name": "Английский язык",
+   "nameKz": "Ағылшын тілі",
+   "ready": false,
+   "meta": {
+    "ru": "",
+    "kz": ""
+   }
+  }
+ ]
+}
