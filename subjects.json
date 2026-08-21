@@ -12,14 +12,14 @@
    }
   },
   {
-   "id": "sandyq-sipattama",
-   "file": "sandyq-sipattama.json",
+   "id": "kolichestvennye",
+   "file": "kolichestvennye.json",
    "name": "Количественные характеристики",
    "nameKz": "Сандық сипаттама",
-   "ready": true,
+   "ready": false,
    "meta": {
-    "ru": "5 класс · 24 задания · 30 минут",
-    "kz": "5 сынып · 24 тапсырма · 30 минут"
+    "ru": "",
+    "kz": ""
    }
   },
   {
@@ -56,14 +56,14 @@
    }
   },
   {
-   "id": "english-diagnostic",
-   "file": "english-diagnostic.json",
+   "id": "english",
+   "file": "english.json",
    "name": "Английский язык",
    "nameKz": "Ағылшын тілі",
-   "ready": true,
+   "ready": false,
    "meta": {
-    "ru": "5 класс · 20 заданий · 20 минут",
-    "kz": "5 сынып · 20 тапсырма · 20 минут"
+    "ru": "",
+    "kz": ""
    }
   }
  ]
