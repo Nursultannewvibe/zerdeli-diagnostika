@@ -13,7 +13,7 @@ var BASE = SELF ? SELF.replace(/[^/]+$/, "") : "./";
 var MOUNT = document.getElementById("zd-app");
 if (!MOUNT) return;                       // на странице нет теста — выходим молча
 
-var MARKUP = "<div class=\"shell\"><header class=\"mast\"><div class=\"brand\">Zerdeli Education<span data-t=\"mastSub\"></span></div><div class=\"langs\"><button type=\"button\" data-lang=\"ru\" aria-pressed=\"true\">RU</button><button type=\"button\" data-lang=\"kz\" aria-pressed=\"false\">KZ</button></div></header><section class=\"screen on\" id=\"s-intro\"><p class=\"eyebrow\" data-t=\"introEyebrow\"></p><h1 data-t=\"introTitle\"></h1><p class=\"lede\" data-t=\"introLede\"></p><div class=\"facts\"><div class=\"fact\"><b class=\"mono\" id=\"f-count\">20</b><span data-t=\"factCount\"></span></div><div class=\"fact\"><b class=\"mono\" id=\"f-time\">25</b><span data-t=\"factTime\"></span></div><div class=\"fact\"><b class=\"mono\">5</b><span data-t=\"factBlocks\"></span></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"whoHead\"></p><div class=\"field\" id=\"fld-child\"><label for=\"i-child\" data-t=\"labChild\"></label><input id=\"i-child\" type=\"text\" autocomplete=\"off\" spellcheck=\"false\"><p class=\"err\" data-t=\"errChild\"></p></div><div class=\"field\"><label for=\"i-grade\" data-t=\"labGrade\"></label><select id=\"i-grade\"><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\" selected>5</option><option value=\"6\">6</option></select></div><p class=\"note\" data-t=\"gradeNote\"></p><button class=\"btn\" id=\"go-handoff\" style=\"margin-top:26px\" data-t=\"btnNext\"></button></div></section><section class=\"screen\" id=\"s-handoff\"><p class=\"eyebrow\" data-t=\"handoffEyebrow\"></p><h1 data-t=\"handoffTitle\"></h1><p class=\"lede\" data-t=\"handoffLede\"></p><ul class=\"rules\" id=\"rules\"></ul><button class=\"btn\" id=\"go-test\" style=\"margin-top:28px\" data-t=\"btnStart\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"handoffNote\"></p></section><section class=\"screen\" id=\"s-test\"><div class=\"bar\"><div class=\"bar-top\"><div class=\"counter\"><span data-t=\"wordTask\"></span><b class=\"mono\" id=\"c-now\">01</b> / <span class=\"mono\" id=\"c-all\">20</span></div><div class=\"clock mono\" id=\"clock\">25:00</div></div><div class=\"sheet\" id=\"sheet\"></div></div><div id=\"q-wrap\"></div><div class=\"btn-row\"><button class=\"btn skip\" id=\"q-skip\" data-t=\"btnSkip\"></button><button class=\"btn\" id=\"q-next\" disabled data-t=\"btnNext\"></button></div></section><section class=\"screen\" id=\"s-lead\"><p class=\"eyebrow\" data-t=\"leadEyebrow\"></p><h1 data-t=\"leadTitle\"></h1><p class=\"lede\" data-t=\"leadLede\"></p><div class=\"strip\" style=\"margin-top:36px\"><div class=\"field\" id=\"fld-name\"><label for=\"i-name\" data-t=\"labParent\"></label><input id=\"i-name\" type=\"text\" autocomplete=\"name\"><p class=\"err\" data-t=\"errName\"></p></div><div class=\"field\" id=\"fld-phone\"><label for=\"i-phone\" data-t=\"labPhone\"></label><input id=\"i-phone\" type=\"tel\" inputmode=\"tel\" autocomplete=\"tel\" placeholder=\"+7 (___) ___-__-__\"><p class=\"err\" data-t=\"errPhone\"></p></div><button class=\"btn\" id=\"go-result\" data-t=\"btnResult\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"leadNote\"></p></div></section><section class=\"screen\" id=\"s-result\"><p class=\"eyebrow\" id=\"r-eyebrow\"></p><h1 data-t=\"resTitle\"></h1><div class=\"verdict\"><div class=\"big mono\"><span id=\"r-score\">0</span><s>/<span id=\"r-total\">20</span></s></div><div class=\"verdict-side\"><span class=\"level\" id=\"r-level\"></span><p id=\"r-leveltxt\"></p></div></div><p class=\"note\" style=\"margin-top:12px\" data-t=\"resFine\"></p><div class=\"strip\"><p class=\"strip-h\" data-t=\"sheetHead\"></p><div class=\"sheet\" id=\"r-sheet\"></div><div class=\"sheet-legend\"><span><em class=\"f\"></em><i style=\"font-style:normal\" data-t=\"legOk\"></i></span><span><em class=\"x\"></em><i style=\"font-style:normal\" data-t=\"legNo\"></i></span><span><em class=\"m\"></em><i style=\"font-style:normal\" data-t=\"legMiss\"></i></span></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"blocksHead\"></p><div class=\"blocks\" id=\"r-blocks\"></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"gapsHead\"></p><div id=\"r-gaps\"></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"timeHead\"></p><div class=\"tgrid\" id=\"r-time\"></div><p class=\"note\" style=\"margin-top:14px\" id=\"r-timetxt\"></p></div><div id=\"r-more\"></div><div class=\"cta\"><h2 data-t=\"ctaTitle\"></h2><p data-t=\"ctaText\"></p><a class=\"btn\" id=\"cta-main\" href=\"#\" data-t=\"ctaBtn\"></a><button class=\"btn ghost\" id=\"cta-print\" data-t=\"ctaPrint\"></button></div><div class=\"foot\"><span data-t=\"footLeft\"></span><span class=\"mono\" id=\"foot-id\"></span></div></section></div>";
+var MARKUP = "<div class=\"shell\"><header class=\"mast\"><div class=\"brand\">Zerdeli Education<span data-t=\"mastSub\"></span></div><div class=\"langs\"><button type=\"button\" data-lang=\"ru\" aria-pressed=\"true\">RU</button><button type=\"button\" data-lang=\"kz\" aria-pressed=\"false\">KZ</button></div></header><section class=\"screen on\" id=\"s-intro\"><p class=\"eyebrow\" data-t=\"introEyebrow\"></p><h1 data-t=\"introTitle\"></h1><p class=\"lede\" data-t=\"introLede\"></p><div class=\"facts\"><div class=\"fact\"><b class=\"mono\" id=\"f-count\">20</b><span data-t=\"factCount\"></span></div><div class=\"fact\"><b class=\"mono\" id=\"f-time\">25</b><span data-t=\"factTime\"></span></div><div class=\"fact\"><b class=\"mono\">5</b><span data-t=\"factBlocks\"></span></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"whoHead\"></p><div class=\"field\" id=\"fld-child\"><label for=\"i-child\" data-t=\"labChild\"></label><input id=\"i-child\" type=\"text\" autocomplete=\"off\" spellcheck=\"false\"><p class=\"err\" data-t=\"errChild\"></p></div><div class=\"field\"><label for=\"i-grade\" data-t=\"labGrade\"></label><select id=\"i-grade\"><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\" selected>5</option><option value=\"6\">6</option></select></div><p class=\"note\" data-t=\"gradeNote\"></p><button class=\"btn\" id=\"go-handoff\" style=\"margin-top:26px\" data-t=\"btnNext\"></button></div></section><section class=\"screen\" id=\"s-handoff\"><p class=\"eyebrow\" data-t=\"handoffEyebrow\"></p><h1 data-t=\"handoffTitle\"></h1><p class=\"lede\" data-t=\"handoffLede\"></p><ul class=\"rules\" id=\"rules\"></ul><button class=\"btn\" id=\"go-test\" style=\"margin-top:28px\" data-t=\"btnStart\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"handoffNote\"></p></section><section class=\"screen\" id=\"s-test\"><div class=\"bar\"><div class=\"bar-top\"><div class=\"counter\"><span data-t=\"wordTask\"></span>&nbsp;<b class=\"mono\" id=\"c-now\">01</b> / <span class=\"mono\" id=\"c-all\">20</span></div><div class=\"clock mono\" id=\"clock\">25:00</div></div><div class=\"sheet\" id=\"sheet\"></div></div><div id=\"q-wrap\"></div><div class=\"btn-row\"><button class=\"btn skip\" id=\"q-skip\" data-t=\"btnSkip\"></button><button class=\"btn\" id=\"q-next\" disabled data-t=\"btnNext\"></button></div></section><section class=\"screen\" id=\"s-lead\"><p class=\"eyebrow\" data-t=\"leadEyebrow\"></p><h1 data-t=\"leadTitle\"></h1><p class=\"lede\" data-t=\"leadLede\"></p><div class=\"strip\" style=\"margin-top:36px\"><div class=\"field\" id=\"fld-name\"><label for=\"i-name\" data-t=\"labParent\"></label><input id=\"i-name\" type=\"text\" autocomplete=\"name\"><p class=\"err\" data-t=\"errName\"></p></div><div class=\"field\" id=\"fld-phone\"><label for=\"i-phone\" data-t=\"labPhone\"></label><input id=\"i-phone\" type=\"tel\" inputmode=\"tel\" autocomplete=\"tel\" placeholder=\"+7 (___) ___-__-__\"><p class=\"err\" data-t=\"errPhone\"></p></div><button class=\"btn\" id=\"go-result\" data-t=\"btnResult\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"leadNote\"></p></div></section><section class=\"screen\" id=\"s-result\"><p class=\"eyebrow\" id=\"r-eyebrow\"></p><h1 data-t=\"resTitle\"></h1><div class=\"verdict\"><div class=\"big mono\"><span id=\"r-score\">0</span><s>/<span id=\"r-total\">20</span></s></div><div class=\"verdict-side\"><span class=\"level\" id=\"r-level\"></span><p id=\"r-leveltxt\"></p></div></div><p class=\"note\" style=\"margin-top:12px\" data-t=\"resFine\"></p><div class=\"strip\"><p class=\"strip-h\" data-t=\"sheetHead\"></p><div class=\"sheet\" id=\"r-sheet\"></div><div class=\"sheet-legend\"><span><em class=\"f\"></em><i style=\"font-style:normal\" data-t=\"legOk\"></i></span><span><em class=\"x\"></em><i style=\"font-style:normal\" data-t=\"legNo\"></i></span><span><em class=\"m\"></em><i style=\"font-style:normal\" data-t=\"legMiss\"></i></span></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"blocksHead\"></p><div class=\"blocks\" id=\"r-blocks\"></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"gapsHead\"></p><div id=\"r-gaps\"></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"timeHead\"></p><div class=\"tgrid\" id=\"r-time\"></div><p class=\"note\" style=\"margin-top:14px\" id=\"r-timetxt\"></p></div><div id=\"r-more\"></div><div class=\"cta\"><h2 data-t=\"ctaTitle\"></h2><p data-t=\"ctaText\"></p><a class=\"btn\" id=\"cta-main\" href=\"#\" data-t=\"ctaBtn\"></a><button class=\"btn ghost\" id=\"cta-print\" data-t=\"ctaPrint\"></button></div><div class=\"foot\"><span data-t=\"footLeft\"></span><span class=\"mono\" id=\"foot-id\"></span></div></section></div>";
 
 function get(path) {
   return fetch(BASE + path, { cache: "no-cache" }).then(function (r) {
@@ -223,25 +223,36 @@ function boot() {
   };
 
   /* чертёж к задаче 31 — восстановлен по описанию из банка */
-  const FIGURES = {
-  31:`<svg viewBox="0 0 420 234" role="img" aria-label="Трапеция: высота 8,5 дм, нижнее основание 2,4 + 9,8 + 5,6 дм, верхнее 9,8 дм">
-  <g fill="none" stroke="#0A1A0D" stroke-width="1.6">
-  <polygon points="40,190 360.4,190 259.6,40 83.2,40" fill="#ACDF08" fill-opacity=".3"/>
-  <line x1="83.2" y1="40" x2="83.2" y2="190" stroke-dasharray="5 4" stroke-width="1.2"/>
-  <path d="M83.2 178 L95.2 178 L95.2 190" stroke-width="1.2"/>
-  <g stroke-width="1.2">
-  <line x1="40" y1="190" x2="40" y2="204"/><line x1="83.2" y1="190" x2="83.2" y2="204"/>
-  <line x1="259.6" y1="190" x2="259.6" y2="204"/><line x1="360.4" y1="190" x2="360.4" y2="204"/>
-  </g></g>
-  <g font-family="JetBrains Mono, monospace" font-size="13" fill="#0A1A0D" text-anchor="middle">
-  <text x="171.4" y="30">9,8 дм</text>
-  <text x="61.6" y="222">2,4</text><text x="171.4" y="222">9,8</text><text x="310" y="222">5,6</text>
-  <text x="105" y="120" text-anchor="start">8,5 дм</text>
-  </g>
-  </svg>`
-  };
 
   /* ================= движок ================= */
+
+  const CMP = {
+    ru:["Значение А больше","Значение В больше","Значения равны","Данных недостаточно"],
+    kz:["А мәні үлкен","В мәні үлкен","Мәндер тең","Дерек жеткіліксіз"]
+  };
+
+  /* строка может быть текстом, парой {ru,kz} или {latex,ru,kz} */
+  function loc(v, lg){
+    if(v === null || v === undefined) return "";
+    if(typeof v === "string") return frText(v);
+    var out = v.latex ? tex(v.latex) : "";
+    var s = v[lg] !== undefined ? v[lg] : (v.ru !== undefined ? v.ru : "");
+    if(s) out += (out ? " " : "") + frText(String(s));
+    return out;
+  }
+
+  /* сравнение столбцов A/B — свой формат, приводим к общему */
+  function prep(q){
+    if(q.a && q.b){
+      q._cmp = true;
+      q._ci = (D.fixedOptions || ["A","B","C","D"]).indexOf(q.correct);
+    } else {
+      q._cmp = false;
+      q._ci = q.correct;
+    }
+    return q;
+  }
+
   const $ = s => document.querySelector(s);
   const D = SUBJECTS[CONFIG.subject];
   const _q=new URLSearchParams(location.search).get("lang");
@@ -292,7 +303,7 @@ function boot() {
   /* ---- подбор задач: пропорционально блокам, без битых ---- */
   function buildPool(){
     const ok = D.questions.filter(q => q.correct !== null && q.correct !== undefined
-                                     && (!q.image || FIGURES[q.n]));
+                                     && (!q.image || q.svg));
     const byBlock = {};
     ok.forEach(q => (byBlock[q.block] = byBlock[q.block] || []).push(q));
     const keys = Object.keys(byBlock);
@@ -309,7 +320,7 @@ function boot() {
       arr.sort((a,b)=> (a.needsCheck?1:0) - (b.needsCheck?1:0));
       res = res.concat(arr.slice(0, Math.min(t.n, arr.length)));
     });
-    return res.sort(()=>Math.random()-.5).slice(0, want);
+    return res.sort(()=>Math.random()-.5).slice(0, want).map(prep);
   }
 
   /* ---- язык ---- */
@@ -322,7 +333,14 @@ function boot() {
     });
     document.querySelectorAll(".langs button").forEach(b=>
       b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
-    $("#rules").innerHTML = t.rules.map(r=>`<li><b>${r[0]}</b><span>${r[1]}</span></li>`).join("");
+    var extra = D.instructions
+      ? '<li><b>!</b><span style="white-space:pre-line">' + loc(D.instructions, lang) + '</span></li>'
+      : "";
+    $("#rules").innerHTML = extra + t.rules.map(function(r){ return "<li><b>"+r[0]+"</b><span>"+r[1]+"</span></li>"; }).join("");
+    var eb = $("#s-intro .eyebrow");
+    if(eb) eb.textContent = (lang==="kz"?"НЗМ":"НИШ") + " · " + D.subject[lang] + " · " + D.class + (lang==="kz"?" сынып":" класс");
+    var fb = document.querySelectorAll(".fact b")[2];
+    if(fb) fb.textContent = Object.keys(D.blocks).length;
     document.documentElement.style.setProperty("--cols", CONFIG.askCount);
     $("#f-count").textContent = CONFIG.askCount;
     $("#f-time").textContent = Math.round(D.timeLimitSec / 60);
@@ -383,18 +401,40 @@ function boot() {
   }
 
   function drawQuestion(){
-    const _ = 0;
     const q = pool[idx], t = T[lang];
     picked = answers[idx].pick;
-    const fig = FIGURES[q.n] ? `<div class="qfig">${FIGURES[q.n]}</div>` : "";
-    const math = q.latex ? `<div class="qmath">${tex(q.latex)}</div>` : "";
-    $("#q-wrap").innerHTML = `
-      <p class="qtag">${D.blocks[q.block][lang]}</p>
-      <p class="qtext">${frText(q.text[lang])}</p>
-      ${math}${fig}
-      <div class="opts">${q.options.map((o,i)=>
-        `<button class="opt" type="button" data-i="${i}" aria-pressed="${picked===i}">
-          <kbd>${"ABCD"[i]}</kbd><span>${frText(o)}</span></button>`).join("")}</div>`;
+
+    var head = "", body = "", opts;
+
+    var p = (q.passage && D.passages) ? D.passages[q.passage] : null;
+    if(p){
+      head = '<div class="psg"><div class="psg-t">' + p.title + '</div>'
+           + (p.instruction ? '<div class="psg-i">' + loc(p.instruction, lang) + '</div>' : "")
+           + p.text.split(/\n\n+/).map(function(x){ return "<p>" + x + "</p>"; }).join("")
+           + '</div>';
+    }
+
+    if(q._cmp){
+      body = (q.context ? '<p class="qtext">' + loc(q.context, lang) + '</p>' : "")
+           + (q.svg ? '<div class="qfig">' + q.svg + '</div>' : "")
+           + '<div class="cmp"><div class="cmp-c"><div class="cmp-h">А</div><div class="cmp-v">' + loc(q.a, lang) + '</div></div>'
+           + '<div class="cmp-c"><div class="cmp-h">В</div><div class="cmp-v">' + loc(q.b, lang) + '</div></div></div>';
+      opts = CMP[lang];
+    } else {
+      body = '<p class="qtext">' + loc(q.text, lang) + '</p>'
+           + (q.latex ? '<div class="qmath">' + tex(q.latex) + '</div>' : "")
+           + (q.svg ? '<div class="qfig">' + q.svg + '</div>' : "");
+      opts = q.options.map(function(o){ return loc(o, lang); });
+    }
+
+    const buttons = opts.map(function(o,i){
+      return '<button class="opt" type="button" data-i="' + i + '" aria-pressed="' + (picked===i) + '">'
+           + '<kbd>' + "ABCD"[i] + '</kbd><span>' + o + '</span></button>';
+    }).join("");
+
+    $("#q-wrap").innerHTML = '<p class="qtag">' + D.blocks[q.block][lang] + '</p>'
+      + head + body + '<div class="opts">' + buttons + '</div>';
+
     $("#q-wrap").querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
       picked = +b.dataset.i; answers[idx].pick = picked;
       $("#q-wrap").querySelectorAll(".opt").forEach(x=>x.setAttribute("aria-pressed", String(+x.dataset.i === picked)));
@@ -470,7 +510,7 @@ function boot() {
     let correct = 0, slow = 0, fast = 0, ms = 0;
     const blocks = {};
     pool.forEach((q,i)=>{
-      const a = answers[i], ok = a.pick === q.correct, norm = D.blocks[q.block].timeNormSec * 1000;
+      const a = answers[i], ok = a.pick === q._ci, norm = D.blocks[q.block].timeNormSec * 1000;
       if(ok) correct++;
       ms += a.ms;
       if(a.ms > norm * 1.6) slow++;
@@ -479,7 +519,8 @@ function boot() {
       b.ask++; b.ms += a.ms; b.norm += norm; if(ok) b.ok++;
     });
     const pct = correct / total;
-    const lv = D.levels.find(l => pct*40 >= l.min && pct*40 <= l.max) || D.levels[0];
+    const top = D.levels[D.levels.length-1].max || D.totalQuestions || pool.length;
+    const lv = D.levels.find(l => pct*top >= l.min && pct*top <= l.max) || D.levels[0];
     const rank = Object.keys(blocks)
       .map(k=>({k, ...blocks[k], pct: blocks[k].ok / blocks[k].ask}))
       .sort((a,b)=> a.pct - b.pct || b.ask - a.ask);
@@ -506,7 +547,7 @@ function boot() {
     $("#r-sheet").innerHTML = pool.map(()=>"<i></i>").join("");
     const cells = $("#r-sheet").children;
     pool.forEach((q,i)=>{
-      const a = answers[i], cls = a.pick === null ? "miss" : (a.pick === q.correct ? "ok" : "no");
+      const a = answers[i], cls = a.pick === null ? "miss" : (a.pick === q._ci ? "ok" : "no");
       setTimeout(()=>{ cells[i].className = cls; }, 40*i);
     });
 
@@ -539,6 +580,10 @@ function boot() {
       <div class="tcell"><b class="mono">${fmt(used/r.total)}</b><span>${t.tAvg}</span></div>
       <div class="tcell"><b class="mono ${r.slow?"warn":""}">${r.slow}</b><span>${t.tSlow}</span></div>
       <div class="tcell"><b class="mono ${r.fast?"warn":""}">${r.fast}</b><span>${t.tFast}</span></div>`;
+    var fine = document.querySelector('[data-t="resFine"]');
+    if(fine) fine.textContent = lang === "kz"
+      ? "Бағалау " + (D.totalQuestions || r.total) + " тапсырманың " + r.total + "-сы бойынша. Бұл — бүгінгі қима, түпкілікті үкім емес: бір айлық сабақтан кейін көрініс өзгереді."
+      : "Оценка по " + r.total + " задачам из банка в " + (D.totalQuestions || r.total) + ". Это срез на сегодня, а не приговор: через месяц занятий картина меняется.";
     $("#r-timetxt").textContent = r.fast >= 2 ? t.timeTextFast : (r.slow >= 3 ? t.timeTextSlow : t.timeTextOk);
     afterResult(lang);
   }

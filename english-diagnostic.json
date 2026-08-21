@@ -1,0 +1,355 @@
+{
+ "id": "english-diagnostic",
+ "version": "1.0",
+ "source": "Google Forms 1xZCsyN9RxNxYFTuH5XAEO729DS1fAi8YxIoym53Q8X8",
+ "type": "multiple-choice",
+ "answerKeyValidated": "Сверено с эталонным прогоном админа (200/200) в таблице ответов — совпадение 20 из 20",
+ "subject": {
+  "kz": "Ағылшын тілі",
+  "ru": "Английский язык"
+ },
+ "class": 5,
+ "classNeedsConfirmation": true,
+ "totalQuestions": 20,
+ "recommendedOnlineCount": 20,
+ "timeLimitSec": 1200,
+ "landing": "3-dnya-nish",
+ "blocks": {
+  "tenses": {
+   "kz": "Етістік шақтары",
+   "ru": "Времена глагола",
+   "timeNormSec": 45,
+   "gapText": {
+    "ru": "Времена глагола — ребёнок знает формы по отдельности, но путается, когда нужно выбрать время по контексту предложения.",
+    "kz": "Етістік шақтары — бала формаларды жеке біледі, бірақ сөйлем мазмұнына қарай шақты таңдағанда шатасады."
+   }
+  },
+  "structures": {
+   "kz": "Сөз таптары және құрылымдар",
+   "ru": "Части речи и конструкции",
+   "timeNormSec": 45,
+   "gapText": {
+    "ru": "Конструкции there is / there are, степени сравнения, местоимения и наречия — базовые блоки, без которых не собирается предложение.",
+    "kz": "there is / there are, шырай, есімдік және үстеу — сөйлем құрылымының негізі."
+   }
+  },
+  "prepositions": {
+   "kz": "Көмекші сөздер және уақыт",
+   "ru": "Предлоги и обозначение времени",
+   "timeNormSec": 40,
+   "gapText": {
+    "ru": "Предлоги места и времени. Их нельзя вывести логикой — только запомнить, и именно здесь чаще всего теряются баллы.",
+    "kz": "Мезгіл және мекен көмекші сөздері — логикамен шығармайды, тек жаттау керек."
+   }
+  },
+  "reading": {
+   "kz": "Мәтінді оқу және түсіну",
+   "ru": "Чтение и понимание текста",
+   "timeNormSec": 60,
+   "gapText": {
+    "ru": "Работа с текстом: найти в прочитанном конкретную информацию и не перепутать её с похожей.",
+    "kz": "Мәтінмен жұмыс: оқығаннан нақты ақпаратты тауып, ұқсас ақпаратпен шатастырмау."
+   }
+  }
+ },
+ "passages": {
+  "farm": {
+   "title": "A Weekend at Grandpa's Farm",
+   "instruction": {
+    "kz": "Мәтінді оқып, сұрақтарға жауап беріңіз.",
+    "ru": "Прочитайте текст и ответьте на вопросы."
+   },
+   "text": "Last weekend, Sam and his sister Lily visited their grandpa's farm. They woke up early on Saturday and packed their bags. Their parents drove them to the farm, which was an hour away from their house.\n\nWhen they arrived, Grandpa was waiting for them at the gate. He was very happy to see them. The farm was big, with green fields, animals, and a small lake. Sam and Lily ran to see the animals. There were cows, chickens, and three friendly dogs.\n\nIn the afternoon, Grandpa showed them how to collect eggs from the chickens. Lily was excited, but Sam was a little scared at first. After that, they helped Grandpa water the plants in the garden. The sun was shining, and the weather was warm.\n\nIn the evening, they had a delicious dinner with fresh vegetables from the farm. Grandpa told them funny stories about his childhood. After dinner, they sat outside and watched the stars. It was very quiet and peaceful.\n\nThe next morning, Sam and Lily woke up early again. They fed the animals and played near the lake. At noon, their parents came to pick them up. They hugged Grandpa and promised to visit again soon. It was a wonderful weekend!"
+  }
+ },
+ "questions": [
+  {
+   "n": 1,
+   "block": "tenses",
+   "sourceTag": "To be verb",
+   "text": "My brother _______ a vet.",
+   "options": [
+    "are",
+    "is",
+    "am",
+    "were"
+   ],
+   "correct": 1
+  },
+  {
+   "n": 2,
+   "block": "structures",
+   "sourceTag": "There is/There are; some/any/no",
+   "text": "_________ ______ bananas on the table.",
+   "options": [
+    "There is / any",
+    "There are / any",
+    "There are / some",
+    "There is / no"
+   ],
+   "correct": 2
+  },
+  {
+   "n": 3,
+   "block": "structures",
+   "sourceTag": "Comparative and Superlative adjectives",
+   "text": "Aisha is the _______.",
+   "options": [
+    "tallest",
+    "taller",
+    "taller than",
+    "more taller"
+   ],
+   "correct": 0
+  },
+  {
+   "n": 4,
+   "block": "prepositions",
+   "sourceTag": "Telling the time",
+   "text": "It is quarter ______ six. (18:15)",
+   "options": [
+    "to",
+    "past",
+    "half past",
+    "half to"
+   ],
+   "correct": 1
+  },
+  {
+   "n": 5,
+   "block": "prepositions",
+   "sourceTag": "Prepositions of time",
+   "text": "My sister's birthday is _____ 3rd of November.",
+   "options": [
+    "at",
+    "in",
+    "on",
+    "for"
+   ],
+   "correct": 2
+  },
+  {
+   "n": 6,
+   "block": "tenses",
+   "sourceTag": "Present Simple tense",
+   "text": "She ______ in Astana.",
+   "options": [
+    "live",
+    "don't lives",
+    "doesn't live",
+    "didn't lives"
+   ],
+   "correct": 2
+  },
+  {
+   "n": 7,
+   "block": "tenses",
+   "sourceTag": "Present Continuous",
+   "text": "Translate the sentence into English: Олар ұйықтап жатыр / Они спят",
+   "options": [
+    "They are sleeping.",
+    "They are sleep.",
+    "We are sleeping.",
+    "They slept."
+   ],
+   "correct": 0
+  },
+  {
+   "n": 8,
+   "block": "structures",
+   "sourceTag": "Question words",
+   "text": "_____ ______ he going? — To the park.",
+   "options": [
+    "Who / is",
+    "Why / are",
+    "Where / is",
+    "What / are"
+   ],
+   "correct": 2
+  },
+  {
+   "n": 9,
+   "block": "prepositions",
+   "sourceTag": "Prepositions of place",
+   "text": "Arman is waiting for his friend ______ his house.",
+   "options": [
+    "in front of",
+    "under",
+    "on",
+    "between"
+   ],
+   "correct": 0
+  },
+  {
+   "n": 10,
+   "block": "tenses",
+   "sourceTag": "Past Simple tense",
+   "text": "______ they in Almaty yesterday?",
+   "options": [
+    "Was",
+    "Were",
+    "Do",
+    "Did"
+   ],
+   "correct": 1
+  },
+  {
+   "n": 11,
+   "block": "tenses",
+   "sourceTag": "Past Simple tense",
+   "text": "My mum _______ a letter two days ago.",
+   "options": [
+    "writed",
+    "write",
+    "wrote",
+    "was wrote"
+   ],
+   "correct": 2
+  },
+  {
+   "n": 12,
+   "block": "structures",
+   "sourceTag": "Adverbs of manner",
+   "text": "The train was moving _____.",
+   "options": [
+    "slowly",
+    "slow",
+    "tired",
+    "fastly"
+   ],
+   "correct": 0
+  },
+  {
+   "n": 13,
+   "block": "structures",
+   "sourceTag": "Possessive pronouns",
+   "text": "This teddy is _____. My sister gave it to me for my birthday.",
+   "options": [
+    "mine",
+    "my",
+    "me",
+    "their"
+   ],
+   "correct": 0
+  },
+  {
+   "n": 14,
+   "block": "tenses",
+   "sourceTag": "Passive voice",
+   "text": "The book ____________ published last year.",
+   "options": [
+    "are",
+    "will be",
+    "was",
+    "were"
+   ],
+   "correct": 2
+  },
+  {
+   "n": 15,
+   "block": "tenses",
+   "sourceTag": "Present Perfect tense",
+   "text": "Choose the correct sentence in Present Perfect.",
+   "options": [
+    "He have just finished his homework.",
+    "He has just eaten lunch.",
+    "He ate lunch a few hours ago.",
+    "He doesn't eat vegetables very often."
+   ],
+   "correct": 1
+  },
+  {
+   "n": 16,
+   "block": "reading",
+   "passage": "farm",
+   "sourceTag": "Understanding supporting details and specific information",
+   "text": "Where did Sam and Lily go for the weekend?",
+   "options": [
+    "To the beach",
+    "To their grandpa's farm",
+    "To the mountains",
+    "To a big city"
+   ],
+   "correct": 1
+  },
+  {
+   "n": 17,
+   "block": "reading",
+   "passage": "farm",
+   "sourceTag": "Understanding supporting details and specific information",
+   "text": "How did Sam and Lily travel to the farm?",
+   "options": [
+    "By bus",
+    "By train",
+    "Their parents drove them",
+    "By bicycle"
+   ],
+   "correct": 2
+  },
+  {
+   "n": 18,
+   "block": "reading",
+   "passage": "farm",
+   "sourceTag": "Understanding supporting details and specific information",
+   "text": "What animals did they see on the farm?",
+   "options": [
+    "Cats, rabbits, and ducks",
+    "Horses, sheep, and goats",
+    "Cows, chickens, and dogs",
+    "Lions, tigers, and bears"
+   ],
+   "correct": 2
+  },
+  {
+   "n": 19,
+   "block": "reading",
+   "passage": "farm",
+   "sourceTag": "Understanding supporting details and specific information",
+   "text": "What did Sam and Lily do in the evening?",
+   "options": [
+    "They went swimming",
+    "They ate dinner, listened to Grandpa's stories, and watched the stars",
+    "They played video games",
+    "They went to a party"
+   ],
+   "correct": 1
+  },
+  {
+   "n": 20,
+   "block": "reading",
+   "passage": "farm",
+   "sourceTag": "Understanding supporting details and specific information",
+   "text": "What did Sam and Lily promise Grandpa before leaving?",
+   "options": [
+    "To bring him a gift next time",
+    "To visit again soon",
+    "To stay at the farm forever",
+    "To take a dog home with them"
+   ],
+   "correct": 1
+  }
+ ],
+ "levels": [
+  {
+   "id": "bastauysh",
+   "name": "Бастауыш",
+   "min": 0,
+   "max": 8,
+   "ru": "База есть, но с заметными пробелами"
+  },
+  {
+   "id": "senimdi",
+   "name": "Сенімді",
+   "min": 9,
+   "max": 15,
+   "ru": "Решает, но теряет баллы на формате и времени"
+  },
+  {
+   "id": "kushti",
+   "name": "Күшті",
+   "min": 16,
+   "max": 20,
+   "ru": "Готов к олимпиадным форматам"
+  }
+ ]
+}

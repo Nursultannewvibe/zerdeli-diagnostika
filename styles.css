@@ -249,3 +249,18 @@ p{margin:0 0 14px}
 .dgsubsoonname{font-size:18px;font-weight:600;line-height:1.25;color:#9A9B99}
 .dgsubsoonmeta{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.05em;
   color:#9A9B99;margin-top:6px}
+
+/* ---------- сравнение столбцов A / B ---------- */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink);
+  border:1.5px solid var(--ink);margin-top:22px}
+.cmp-c{background:var(--paper);padding:18px 16px;display:flex;flex-direction:column;gap:12px}
+.cmp-h{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;
+  letter-spacing:.16em;color:var(--grey)}
+.cmp-v{font-size:clamp(18px,4.4vw,22px);font-weight:500;line-height:1.4}
+
+/* ---------- текст для чтения ---------- */
+.psg{border:1.5px solid var(--rule);padding:18px 18px 4px;margin-bottom:22px;
+  max-height:38vh;overflow-y:auto}
+.psg-t{font-family:"Unbounded",sans-serif;font-weight:600;font-size:17px;margin-bottom:8px}
+.psg-i{font-size:13.5px;color:var(--grey);margin-bottom:14px}
+.psg p{font-size:15.5px;line-height:1.6;margin:0 0 12px}
