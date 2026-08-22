@@ -314,7 +314,8 @@ function boot() {
   }
   function tex(src){
     return parseTex(src)
-      .replace(/\\left\(/g,"(").replace(/\\right\)/g,")")
+      .replace(/\\left\(/g,'<span class="par">(</span>')
+      .replace(/\\right\)/g,'<span class="par">)</span>')
       .replace(/\{,\}/g,",")
       .replace(/\\cdots/g,"\u22EF")
       .replace(/\\cdot/g,"\u00B7")
