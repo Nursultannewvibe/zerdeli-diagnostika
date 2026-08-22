@@ -855,8 +855,8 @@
    "n": 59,
    "block": "logic",
    "a": {
-    "latex": "\\frac{1}{2}\\ \\text{от}\\ \\frac{1}{2}\\ \\text{части}\\ \\frac{1}{2}",
-    "latexKz": "\\frac{1}{2}\\ \\text{-дің}\\ \\frac{1}{2}\\ \\text{-бөлігінің}\\ \\frac{1}{2}\\ \\text{-бөлігі}"
+    "latex": "\\frac{1}{2} - \\text{от}\\ \\frac{1}{2} - \\text{части}\\ \\frac{1}{2}",
+    "latexKz": "\\frac{1}{2} - \\text{дің}\\ \\frac{1}{2} - \\text{бөлігінің}\\ \\frac{1}{2} - \\text{бөлігі}"
    },
    "b": {
     "kz": "2,5-тің 0,5 бөлігі",
@@ -868,12 +868,12 @@
    "n": 60,
    "block": "calc",
    "a": {
-    "latex": "\\underbrace{2 + 2 + \\cdots + 2}_{100\\ \\text{раз}}",
-    "latexKz": "\\underbrace{2 + 2 + \\cdots + 2}_{100\\ \\text{рет}}"
+    "latex": "\\underbrace{2 + 2 + 2 + \\cdots + 2}_{100\\ \\text{раз}}",
+    "latexKz": "\\underbrace{2 + 2 + 2 + \\cdots + 2}_{100\\ \\text{рет}}"
    },
    "b": {
-    "latex": "\\underbrace{\\tfrac{1}{2} + \\tfrac{1}{2} + \\cdots + \\tfrac{1}{2}}_{250\\ \\text{раз}}",
-    "latexKz": "\\underbrace{\\tfrac{1}{2} + \\tfrac{1}{2} + \\cdots + \\tfrac{1}{2}}_{250\\ \\text{рет}}"
+    "latex": "\\underbrace{\\tfrac{1}{2} + \\tfrac{1}{2} + \\tfrac{1}{2} + \\cdots + \\tfrac{1}{2}}_{250\\ \\text{раз}}",
+    "latexKz": "\\underbrace{\\tfrac{1}{2} + \\tfrac{1}{2} + \\tfrac{1}{2} + \\cdots + \\tfrac{1}{2}}_{250\\ \\text{рет}}"
    },
    "correct": "A"
   }
