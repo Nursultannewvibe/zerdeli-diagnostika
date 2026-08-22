@@ -151,7 +151,7 @@
    "image": "q06.png",
    "imageNote": "А — прямоугольник 4 см × 3 см. В — прямоугольный треугольник с катетами 4 см и 3 см.",
    "correct": "A",
-   "svg": "<svg viewBox=\"0 0 420 200\" role=\"img\" aria-label=\"Прямоугольник 4 на 3 и прямоугольный треугольник с катетами 4 и 3\"><g fill=\"none\" stroke=\"#0A1A0D\" stroke-width=\"1.6\"><rect x=\"60\" y=\"40\" width=\"120\" height=\"90\" fill=\"#ACDF08\" fill-opacity=\".3\"/><polygon points=\"270,130 390,130 270,40\" fill=\"#ACDF08\" fill-opacity=\".3\"/><path d=\"M270 118 L282 118 L282 130\" stroke-width=\"1.2\"/></g><g font-family=\"JetBrains Mono, monospace\" font-size=\"13\" fill=\"#0A1A0D\"><text x=\"120\" y=\"30\" text-anchor=\"middle\">4 см</text><text x=\"52\" y=\"90\" text-anchor=\"end\">3 см</text><text x=\"330\" y=\"152\" text-anchor=\"middle\">4 см</text><text x=\"262\" y=\"90\" text-anchor=\"end\">3 см</text></g><g font-family=\"JetBrains Mono, monospace\" font-size=\"12\" fill=\"#6C6D6D\" text-anchor=\"middle\"><text x=\"120\" y=\"178\">А</text><text x=\"330\" y=\"178\">В</text></g></svg>"
+   "svg": "<svg viewBox=\"0 0 420 210\" role=\"img\" aria-label=\"Прямоугольник 4 на 3 см и прямоугольный треугольник с катетами 4 и 3 см\"><g fill=\"none\" stroke=\"#0A1A0D\" stroke-width=\"1.6\"><rect x=\"50\" y=\"45\" width=\"120\" height=\"90\" fill=\"#ACDF08\" fill-opacity=\".3\"/><polygon points=\"280,45 280,165 370,165\" fill=\"#ACDF08\" fill-opacity=\".3\"/><path d=\"M280 153 L292 153 L292 165\" stroke-width=\"1.2\"/></g><g font-family=\"JetBrains Mono, monospace\" font-size=\"13\" fill=\"#0A1A0D\"><text x=\"110\" y=\"158\" text-anchor=\"middle\">4 см</text><text x=\"180\" y=\"95\" text-anchor=\"start\">3 см</text><text x=\"272\" y=\"110\" text-anchor=\"end\">4 см</text><text x=\"325\" y=\"188\" text-anchor=\"middle\">3 см</text></g><g font-family=\"JetBrains Mono, monospace\" font-size=\"12\" fill=\"#6C6D6D\" text-anchor=\"middle\"><text x=\"110\" y=\"188\">А</text><text x=\"360\" y=\"35\">В</text></g></svg>"
   },
   {
    "n": 7,
@@ -867,10 +867,12 @@
    "n": 60,
    "block": "calc",
    "a": {
-    "latex": "\\underbrace{2 + 2 + \\cdots + 2}_{100\\ \\text{раз}}"
+    "latex": "\\underbrace{2 + 2 + \\cdots + 2}_{100\\ \\text{раз}}",
+    "latexKz": "\\underbrace{2 + 2 + \\cdots + 2}_{100\\ \\text{рет}}"
    },
    "b": {
-    "latex": "\\underbrace{\\tfrac{1}{2} + \\tfrac{1}{2} + \\cdots + \\tfrac{1}{2}}_{250\\ \\text{раз}}"
+    "latex": "\\underbrace{\\tfrac{1}{2} + \\tfrac{1}{2} + \\cdots + \\tfrac{1}{2}}_{250\\ \\text{раз}}",
+    "latexKz": "\\underbrace{\\tfrac{1}{2} + \\tfrac{1}{2} + \\cdots + \\tfrac{1}{2}}_{250\\ \\text{рет}}"
    },
    "correct": "A"
   }
