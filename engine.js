@@ -237,7 +237,9 @@ function boot() {
   function loc(v, lg){
     if(v === null || v === undefined) return "";
     if(typeof v === "string") return frText(v);
-    var out = v.latex ? tex(v.latex) : "";
+    /* формула может быть своей для каждого языка: latexKz имеет приоритет */
+    var f = (lg === "kz" && v.latexKz) ? v.latexKz : v.latex;
+    var out = f ? tex(f) : "";
     var s = v[lg] !== undefined ? v[lg] : (v.ru !== undefined ? v.ru : "");
     if(s) out += (out ? " " : "") + frText(String(s));
     return out;
