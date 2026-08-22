@@ -270,26 +270,53 @@ function boot() {
     for(;j<str.length;j++){ if(str[j]==="{")depth++; else if(str[j]==="}"){depth--; if(!depth)break;} }
     return {body:str.slice(start,j), end:j+1};
   }
-  function parseFrac(str){
+  function parseTex(str){
     let out="", i=0;
     while(i<str.length){
+      /* \underbrace{выражение}_{подпись} */
+      if(str.startsWith("\\underbrace",i)){
+        let j=i+11;
+        const a=readGroup(str,j); j=a.end;
+        let lab="";
+        if(str[j]==="_"){ const b=readGroup(str,j+1); lab=b.body; j=b.end; }
+        out += '<span class="ub"><span class="ub-x">' + parseTex(a.body) + '</span>'
+             + '<span class="ub-l">' + parseTex(lab) + '</span></span>';
+        i=j; continue;
+      }
+      /* \frac{}{} и \tfrac{}{} */
       const t = str.startsWith("\\tfrac",i) ? 6 : (str.startsWith("\\frac",i) ? 5 : 0);
       if(t){
         let j=i+t;
         const a=readGroup(str,j); j=a.end;
         const b=readGroup(str,j); j=b.end;
-        out+=`<span class="fr"><span class="fr-n">${parseFrac(a.body)}</span><span class="fr-d">${parseFrac(b.body)}</span></span>`;
+        out += '<span class="fr"><span class="fr-n">' + parseTex(a.body) + '</span>'
+             + '<span class="fr-d">' + parseTex(b.body) + '</span></span>';
         i=j; continue;
+      }
+      /* \text{обычные слова} */
+      if(str.startsWith("\\text",i)){
+        const a=readGroup(str,i+5);
+        out += a.body;
+        i=a.end; continue;
+      }
+      /* степень и индекс: x^2, ^{12}, _{100} */
+      if(str[i]==="^" || str[i]==="_"){
+        const tag = str[i]==="^" ? "sup" : "sub";
+        const a=readGroup(str,i+1);
+        out += "<"+tag+">" + parseTex(a.body) + "</"+tag+">";
+        i=a.end; continue;
       }
       out+=str[i]; i++;
     }
     return out;
   }
   function tex(src){
-    return parseFrac(src)
+    return parseTex(src)
       .replace(/\\left\(/g,"(").replace(/\\right\)/g,")")
       .replace(/\{,\}/g,",")
-      .replace(/\\cdot/g,"·")
+      .replace(/\\cdots/g,"\u22EF")
+      .replace(/\\cdot/g,"\u00B7")
+      .replace(/\\times/g,"\u00D7")
       .replace(/\\quad/g,'<span class="sp-q"></span>')
       .replace(/\\,/g,'<span class="sp-t"></span>')
       .replace(/\\ /g," ")
@@ -348,6 +375,7 @@ function boot() {
     $("#f-time").textContent = Math.round(D.timeLimitSec / 60);
     $("#c-all").textContent = String(CONFIG.askCount).padStart(2,"0");
     $("#cta-main").href = lang === "kz" ? CONFIG.ctaUrlKz : CONFIG.ctaUrl;
+    subjectPicker(lang);
     if($("#s-result").classList.contains("on") && lastResult) render(lastResult);
     if(!$("#s-test").classList.contains("on")) return;
     keepTime = true; drawQuestion();
@@ -692,6 +720,36 @@ function afterResult(lang) {
   }
 
   host.innerHTML = html;
+}
+
+/* ---------- выбор предмета на первом экране ---------- */
+
+function subjectPicker(lang){
+  var ready = (window.__ZD_REG__ || []).filter(function(s){ return s.ready; });
+  var anchor = document.getElementById("fld-child");
+  if(!anchor) return;
+
+  var old = document.getElementById("zd-subj-field");
+  if(old) old.parentNode.removeChild(old);
+  if(ready.length < 2) return;
+
+  var here = window.__ZD_PICK__.id;
+  var wrap = document.createElement("div");
+  wrap.className = "field";
+  wrap.id = "zd-subj-field";
+  wrap.innerHTML =
+    '<label for="zd-subj">' + (lang === "kz" ? "Пән" : "Предмет") + '</label>' +
+    '<select id="zd-subj">' +
+      ready.map(function(s){
+        return '<option value="' + s.id + '"' + (s.id === here ? " selected" : "") + '>' +
+               label(s, lang) + '</option>';
+      }).join("") +
+    '</select>';
+
+  anchor.parentNode.insertBefore(wrap, anchor);
+  document.getElementById("zd-subj").addEventListener("change", function(){
+    location.search = "?subject=" + this.value + (lang === "kz" ? "&lang=kz" : "");
+  });
 }
 
 } /* boot */
