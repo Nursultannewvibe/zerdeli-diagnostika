@@ -1,40 +1,73 @@
-/* =========================================================
-   Zerdeli · диагностика готовности к НИШ
-   Движок. Ничего предметного здесь нет — предметы лежат
-   в subjects/*.json, настройки в config.json.
-   ========================================================= */
-(function () {
-"use strict";
-
-/* адрес папки, из которой загружен этот файл */
-var SELF = document.currentScript && document.currentScript.src;
-var BASE = SELF ? SELF.replace(/[^/]+$/, "") : "./";
-
-var MOUNT = document.getElementById("zd-app");
-if (!MOUNT) return;                       // на странице нет теста — выходим молча
-
-var MARKUP = "<div class=\"shell\"><header class=\"mast\"><div class=\"brand\">Zerdeli Education<span data-t=\"mastSub\"></span></div><div class=\"langs\"><button type=\"button\" data-lang=\"ru\" aria-pressed=\"true\">RU</button><button type=\"button\" data-lang=\"kz\" aria-pressed=\"false\">KZ</button></div></header><section class=\"screen on\" id=\"s-intro\"><p class=\"eyebrow\" data-t=\"introEyebrow\"></p><h1 data-t=\"introTitle\"></h1><p class=\"lede\" data-t=\"introLede\"></p><div class=\"facts\"><div class=\"fact\"><b class=\"mono\" id=\"f-count\">20</b><span data-t=\"factCount\"></span></div><div class=\"fact\"><b class=\"mono\" id=\"f-time\">25</b><span data-t=\"factTime\"></span></div><div class=\"fact\"><b class=\"mono\">5</b><span data-t=\"factBlocks\"></span></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"whoHead\"></p><div class=\"field\" id=\"fld-child\"><label for=\"i-child\" data-t=\"labChild\"></label><input id=\"i-child\" type=\"text\" autocomplete=\"off\" spellcheck=\"false\"><p class=\"err\" data-t=\"errChild\"></p></div><div class=\"field\"><label for=\"i-grade\" data-t=\"labGrade\"></label><select id=\"i-grade\"><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\" selected>5</option><option value=\"6\">6</option></select></div><p class=\"note\" data-t=\"gradeNote\"></p><button class=\"btn\" id=\"go-handoff\" style=\"margin-top:26px\" data-t=\"btnNext\"></button></div></section><section class=\"screen\" id=\"s-handoff\"><p class=\"eyebrow\" data-t=\"handoffEyebrow\"></p><h1 data-t=\"handoffTitle\"></h1><p class=\"lede\" data-t=\"handoffLede\"></p><ul class=\"rules\" id=\"rules\"></ul><button class=\"btn\" id=\"go-test\" style=\"margin-top:28px\" data-t=\"btnStart\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"handoffNote\"></p></section><section class=\"screen\" id=\"s-test\"><div class=\"bar\"><div class=\"bar-top\"><div class=\"counter\"><span data-t=\"wordTask\"></span>&nbsp;<b class=\"mono\" id=\"c-now\">01</b> / <span class=\"mono\" id=\"c-all\">20</span></div><div class=\"clock mono\" id=\"clock\">25:00</div></div><div class=\"sheet\" id=\"sheet\"></div></div><div id=\"q-wrap\"></div><div class=\"btn-row\"><button class=\"btn skip\" id=\"q-skip\" data-t=\"btnSkip\"></button><button class=\"btn\" id=\"q-next\" disabled data-t=\"btnNext\"></button></div></section><section class=\"screen\" id=\"s-lead\"><p class=\"eyebrow\" data-t=\"leadEyebrow\"></p><h1 data-t=\"leadTitle\"></h1><p class=\"lede\" data-t=\"leadLede\"></p><div class=\"strip\" style=\"margin-top:36px\"><div class=\"field\" id=\"fld-name\"><label for=\"i-name\" data-t=\"labParent\"></label><input id=\"i-name\" type=\"text\" autocomplete=\"name\"><p class=\"err\" data-t=\"errName\"></p></div><div class=\"field\" id=\"fld-phone\"><label for=\"i-phone\" data-t=\"labPhone\"></label><input id=\"i-phone\" type=\"tel\" inputmode=\"tel\" autocomplete=\"tel\" placeholder=\"+7 (___) ___-__-__\"><p class=\"err\" data-t=\"errPhone\"></p></div><button class=\"btn\" id=\"go-result\" data-t=\"btnResult\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"leadNote\"></p></div></section><section class=\"screen\" id=\"s-result\"><p class=\"eyebrow\" id=\"r-eyebrow\"></p><h1 data-t=\"resTitle\"></h1><div class=\"verdict\"><div class=\"big mono\"><span id=\"r-score\">0</span><s>/<span id=\"r-total\">20</span></s></div><div class=\"verdict-side\"><span class=\"level\" id=\"r-level\"></span><p id=\"r-leveltxt\"></p></div></div><p class=\"note\" style=\"margin-top:12px\" data-t=\"resFine\"></p><div class=\"strip\"><p class=\"strip-h\" data-t=\"sheetHead\"></p><div class=\"sheet\" id=\"r-sheet\"></div><div class=\"sheet-legend\"><span><em class=\"f\"></em><i style=\"font-style:normal\" data-t=\"legOk\"></i></span><span><em class=\"x\"></em><i style=\"font-style:normal\" data-t=\"legNo\"></i></span><span><em class=\"m\"></em><i style=\"font-style:normal\" data-t=\"legMiss\"></i></span></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"blocksHead\"></p><div class=\"blocks\" id=\"r-blocks\"></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"gapsHead\"></p><div id=\"r-gaps\"></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"timeHead\"></p><div class=\"tgrid\" id=\"r-time\"></div><p class=\"note\" style=\"margin-top:14px\" id=\"r-timetxt\"></p></div><div id=\"r-more\"></div><div class=\"cta\"><h2 data-t=\"ctaTitle\"></h2><p data-t=\"ctaText\"></p><a class=\"btn\" id=\"cta-main\" href=\"#\" data-t=\"ctaBtn\"></a><button class=\"btn ghost\" id=\"cta-print\" data-t=\"ctaPrint\"></button></div><div class=\"foot\"><span data-t=\"footLeft\"></span><span class=\"mono\" id=\"foot-id\"></span></div></section></div>";
-
-function get(path) {
-  return fetch(BASE + path, { cache: "no-cache" }).then(function (r) {
-    if (!r.ok) throw new Error(path + " → " + r.status);
-    return r.json();
-  });
-}
-
-function fail(msg) {
-  MOUNT.innerHTML =
-    '<div class="shell"><div class="strip" style="margin-top:60px">' +
-    '<p class="strip-h">Тест не загрузился</p>' +
-    '<p class="note">' + msg + '</p></div></div>';
-}
-
-var wanted = new URLSearchParams(location.search).get("subject") || "";
-
-Promise.all([get("config.json"), get("subjects.json")])
-  .then(function (res) {
-    var cfg = res[0], reg = res[1];
-    var list = reg.subjects.filter(function (s) { return s.ready; });
+{
+ "subjects": [
+  {
+   "id": "matematika-5-klass",
+   "file": "matematika-5-klass.json",
+   "name": "Математика",
+   "nameKz": "Математика",
+   "ready": true,
+   "meta": {
+    "ru": "5 класс · 20 задач · 25 минут",
+    "kz": "5 сынып · 20 тапсырма · 25 минут"
+   }
+  },
+  {
+   "id": "sandyq-sipattama",
+   "file": "sandyq-sipattama.json",
+   "name": "Количественные характеристики",
+   "nameKz": "Сандық сипаттама",
+   "ready": true,
+   "meta": {
+    "ru": "5 класс · 24 задания · 30 минут",
+    "kz": "5 сынып · 24 тапсырма · 30 минут"
+   }
+  },
+  {
+   "id": "estestvoznanie",
+   "file": "estestvoznanie.json",
+   "name": "Естествознание",
+   "nameKz": "Жаратылыстану",
+   "ready": true,
+   "meta": {
+    "ru": "5 класс · 20 заданий · 20 минут",
+    "kz": "5 сынып · 20 тапсырма · 20 минут"
+   }
+  },
+  {
+   "id": "kazakh",
+   "file": "kazakh.json",
+   "name": "Казахский язык",
+   "nameKz": "Қазақ тілі",
+   "ready": true,
+   "meta": {
+    "ru": "5 класс · 20 заданий · 30 минут",
+    "kz": "5 сынып · 20 тапсырма · 30 минут"
+   }
+  },
+  {
+   "id": "russian",
+   "file": "russian.json",
+   "name": "Русский язык",
+   "nameKz": "Орыс тілі",
+   "ready": true,
+   "meta": {
+    "ru": "5 класс · 20 заданий · 30 минут",
+    "kz": "5 сынып · 20 тапсырма · 30 минут"
+   }
+  },
+  {
+   "id": "english-diagnostic",
+   "file": "english-diagnostic.json",
+   "name": "Английский язык",
+   "nameKz": "Ағылшын тілі",
+   "ready": true,
+   "meta": {
+    "ru": "5 класс · 20 заданий · 20 минут",
+    "kz": "5 сынып · 20 тапсырма · 20 минут"
+   }
+  }
+ ]
+}    var list = reg.subjects.filter(function (s) { return s.ready; });
     if (!list.length) throw new Error("нет ни одного готового предмета");
 
     var pick = list.filter(function (s) { return s.id === wanted; })[0] || list[0];
