@@ -97,7 +97,8 @@ function boot() {
       ["01","Двадцать задач, двадцать пять минут. Время идёт на весь тест сразу, не на каждую задачу."],
       ["02","Вернуться к предыдущей задаче нельзя — как на настоящем экзамене."],
       ["03","Считать в уме или на черновике. Калькулятор ломает весь смысл: он покажет чужой результат."],
-      ["04","Задача не идёт — лучше пропустить и вернуть время на остальные."]
+      ["04","Задача не идёт — лучше пропустить и вернуть время на остальные."],
+      ["05","Если свернуть тест и уйти в другое приложение — это записывается и попадёт в разбор."]
     ],
     btnStart:"Начать",
     handoffNote:"Если ребёнок не успеет — тест закроется сам, и разбор всё равно будет.",
@@ -134,6 +135,14 @@ function boot() {
     tFast:"слишком быстро",
     timeTextSlow:"Задачи, на которые ушло заметно больше нормы, — это темы, где ребёнок считает, но медленно. На экзамене такая задача съедает время двух других.",
     timeTextFast:"Ответы быстрее 15 секунд — почти наверняка угадывание. Балл за них случайный, и на экзамене он не повторится.",
+    againNote:"Этот предмет уже проходили {d}",
+    againFine:"Повторный проход не показываем: балл со второй попытки завышен — часть заданий уже знакома. Ниже результат первого раза.",
+    againTitle:"Хотите проверить ещё раз?",
+    againText:"Возьмите другой предмет — их шесть, и вместе они дают куда более полную картину, чем повтор одного и того же. Если нужен именно этот предмет заново, напишите нам, откроем.",
+    awayHead:"Выходил из теста",
+    awayNone:"не выходил ни разу — тест пройден в один заход",
+    awayOne:"Ребёнок сворачивал тест. Само по себе это не обвинение: мог отвлечься кто-то из домашних. Но если выходов много и они длинные — стоит спросить, чем он занимался в это время.",
+    awayRule:"Если свернуть тест и уйти в другое приложение — это записывается и попадёт в разбор.",
     timeTextOk:"Темп ровный: ребёнок распределяет время по задачам, а не застревает на одной.",
     gapNoneTitle:"Явных провалов нет",
     gapNoneText:"По каждой теме ребёнок решает больше половины. Дальше растёт не знание тем, а скорость и устойчивость к непривычным формулировкам — это и есть разница между «сдал» и «прошёл на грант».",
@@ -166,7 +175,8 @@ function boot() {
       ["01","Жиырма тапсырма, жиырма бес минут. Уақыт бүкіл тестке беріледі, әр тапсырмаға бөлек емес."],
       ["02","Алдыңғы тапсырмаға қайта оралуға болмайды — нағыз емтихандағыдай."],
       ["03","Есептеу ауызша не жобада. Калькулятор бүкіл мәнін жояды: ол баланың емес, өзінің нәтижесін көрсетеді."],
-      ["04","Тапсырма шықпай жатса — өткізіп жіберген дұрыс, уақыт қалғанына керек."]
+      ["04","Тапсырма шықпай жатса — өткізіп жіберген дұрыс, уақыт қалғанына керек."],
+      ["05","Тестті жинап, басқа қосымшаға шықса — бұл жазылады және талдауда көрінеді."]
     ],
     btnStart:"Бастау",
     handoffNote:"Бала үлгермей қалса, тест өзі жабылады — талдау бәрібір шығады.",
@@ -203,6 +213,14 @@ function boot() {
     tFast:"тым тез",
     timeTextSlow:"Нормадан әлдеқайда көп уақыт кеткен тапсырмалар — бала шығарады, бірақ баяу. Емтиханда мұндай бір есеп екі есептің уақытын жеп қояды.",
     timeTextFast:"15 секундтан жылдам берілген жауаптар — көбіне болжам. Ондай ұпай кездейсоқ, емтиханда қайталанбайды.",
+    againNote:"Бұл пән {d} өтілген",
+    againFine:"Қайталап өткенді көрсетпейміз: екінші реткі ұпай жоғары шығады, тапсырмалардың бір бөлігі таныс. Төменде бірінші реткі нәтиже.",
+    againTitle:"Тағы тексергіңіз келе ме?",
+    againText:"Басқа пәнді алыңыз — олар алтау, бірігіп бір пәнді қайталағаннан әлдеқайда толық көрініс береді. Дәл осы пән қайта керек болса — бізге жазыңыз, ашып береміз.",
+    awayHead:"Тесттен шыққаны",
+    awayNone:"бір рет те шықпады — тест бір отырыста өтті",
+    awayOne:"Бала тестті жинап қойған. Бұл әлі айып емес: үйдегілер алаңдатуы мүмкін. Бірақ шығу саны көп әрі ұзақ болса — сол уақытта немен айналысқанын сұраған жөн.",
+    awayRule:"Тестті жинап, басқа қосымшаға шықса — бұл жазылады және талдауда көрінеді.",
     timeTextOk:"Қарқыны бірқалыпты: бала уақытты тапсырмаларға бөліп үлестіреді, біреуіне тұрып қалмайды.",
     gapNoneTitle:"Айқын олқылық жоқ",
     gapNoneText:"Әр тақырып бойынша бала жартысынан көбін шығарады. Бұдан әрі өсетіні — тақырып білімі емес, жылдамдық пен бейтаныс тұжырымдамаға төзімділік. «Тапсырды» мен «грантқа өтті» дегеннің айырмасы дәл осында.",
@@ -262,6 +280,7 @@ function boot() {
   const _q=new URLSearchParams(location.search).get("lang");
   let lang = (_q==="kz"||_q==="ru") ? _q : (localStorage.getItem("zd_lang") || "ru");
   let lastResult = null;
+  let awayCount = 0, awayMs = 0, awayAt = 0, watching = false;
   let pool = [], idx = 0, answers = [], qStart = 0, endAt = 0, tick = null, picked = null, keepTime = false;
 
   /* ---- отрисовка LaTeX-подмножества, которое есть в банке ---- */
@@ -409,9 +428,38 @@ function boot() {
     show("s-test");
     drawSheet();
     drawQuestion();
+    awayCount = 0; awayMs = 0; awayAt = 0;
+    watchAway(true);
     tick = setInterval(clockTick, 250);
     clockTick();
   });
+
+  function watchAway(on){
+    if(on === watching) return;
+    watching = on;
+    if(on){
+      document.addEventListener("visibilitychange", onVis);
+      window.addEventListener("blur", onAway);
+      window.addEventListener("focus", onBack);
+    } else {
+      document.removeEventListener("visibilitychange", onVis);
+      window.removeEventListener("blur", onAway);
+      window.removeEventListener("focus", onBack);
+      onBack();
+    }
+  }
+  function onAway(){
+    if(awayAt) return;
+    awayAt = Date.now(); awayCount++;
+  }
+  function onVis(){
+    if(document.visibilityState === "hidden") onAway(); else onBack();
+  }
+  function onBack(){
+    if(!awayAt) return;
+    awayMs += Date.now() - awayAt;
+    awayAt = 0;
+  }
 
   function clockTick(){
     const left = Math.max(0, Math.round((endAt - Date.now())/1000));
@@ -503,6 +551,7 @@ function boot() {
 
   function finish(byTime){
     clearInterval(tick);
+    watchAway(false);
     if(byTime){ answers[idx].pick = picked; answers[idx].ms = Date.now() - qStart; }
     show("s-lead");
     if(byTime) $("#s-lead").querySelector(".eyebrow").textContent = T[lang].timeUp;
@@ -531,12 +580,18 @@ function boot() {
     $("#fld-phone").classList.toggle("bad", !okPhone);
     if(!okName) return $("#i-name").focus();
     if(!okPhone) return phone.focus();
-    const r = analyse(); lastResult = r;
+    const btn = $("#go-result");
+    btn.disabled = true;
+    askPrevious(digits, function(prev){
+      btn.disabled = false;
+      if(prev){ renderPrevious(prev); show("s-result"); return; }
+      const r = analyse(); lastResult = r;
     try{ localStorage.setItem("zd_phone", digits); localStorage.setItem("zd_parent", name); }catch(e){}
     remember(r);
-    send(name, digits, r);
-    render(r);
-    show("s-result");
+      send(name, digits, r);
+      render(r);
+      show("s-result");
+    });
   });
 
   /* ---- анализ ---- */
@@ -559,7 +614,7 @@ function boot() {
     const rank = Object.keys(blocks)
       .map(k=>({k, ...blocks[k], pct: blocks[k].ok / blocks[k].ask}))
       .sort((a,b)=> a.pct - b.pct || b.ask - a.ask);
-    return {total, correct, pct, lv, blocks, rank, slow, fast, ms};
+    return {total, correct, pct, lv, blocks, rank, slow, fast, ms, away: awayCount, awaySec: Math.round(awayMs/1000)};
   }
 
   function fmt(sec){
@@ -614,18 +669,76 @@ function boot() {
       <div class="tcell"><b class="mono">${fmt(used)}</b><span>${t.tTotal}</span></div>
       <div class="tcell"><b class="mono">${fmt(used/r.total)}</b><span>${t.tAvg}</span></div>
       <div class="tcell"><b class="mono ${r.slow?"warn":""}">${r.slow}</b><span>${t.tSlow}</span></div>
-      <div class="tcell"><b class="mono ${r.fast?"warn":""}">${r.fast}</b><span>${t.tFast}</span></div>`;
+      <div class="tcell"><b class="mono ${r.fast?"warn":""}">${r.fast}</b><span>${t.tFast}</span></div>
+      <div class="tcell"><b class="mono ${r.away?"warn":""}">${r.away}</b><span>${t.awayHead}${r.away ? " · " + fmt(r.awaySec) : ""}</span></div>`;
     var fine = document.querySelector('[data-t="resFine"]');
     if(fine) fine.textContent = lang === "kz"
       ? "Бағалау " + (D.totalQuestions || r.total) + " тапсырманың " + r.total + "-сы бойынша. Бұл — бүгінгі қима, түпкілікті үкім емес: бір айлық сабақтан кейін көрініс өзгереді."
       : "Оценка по " + r.total + " задачам из банка в " + (D.totalQuestions || r.total) + ". Это срез на сегодня, а не приговор: через месяц занятий картина меняется.";
-    $("#r-timetxt").textContent = r.fast >= 2 ? t.timeTextFast : (r.slow >= 3 ? t.timeTextSlow : t.timeTextOk);
     afterResult(lang);
+    $("#r-timetxt").textContent = r.away
+      ? t.awayOne
+      : (r.fast >= 2 ? t.timeTextFast : (r.slow >= 3 ? t.timeTextSlow : t.timeTextOk));
   }
 
   $("#cta-print").addEventListener("click", ()=>window.print());
 
   /* ---- отправка заявки ---- */
+  /* Спрашиваем таблицу, проходил ли этот номер этот предмет.
+     Ответ приходит вызовом функции — так обходится запрет браузера
+     на чтение чужих ответов. Любая заминка = пускаем дальше. */
+  function askPrevious(digits, done){
+    if(!CONFIG.endpoint) return done(null);
+    var fn = "zdcb" + Date.now();
+    var el = document.createElement("script");
+    var over = false;
+    function finishOnce(res){
+      if(over) return;
+      over = true;
+      clearTimeout(timer);
+      try{ delete window[fn]; }catch(e){ window[fn] = undefined; }
+      if(el.parentNode) el.parentNode.removeChild(el);
+      done(res);
+    }
+    var timer = setTimeout(function(){ finishOnce(null); }, 6000);
+    window[fn] = function(res){ finishOnce(res && res.found ? res : null); };
+    el.onerror = function(){ finishOnce(null); };
+    el.src = CONFIG.endpoint
+      + "?mode=check&phone=" + encodeURIComponent(digits)
+      + "&subject=" + encodeURIComponent(CONFIG.subject)
+      + "&cb=" + fn;
+    document.head.appendChild(el);
+  }
+
+  /* Экран для тех, кто уже проходил этот предмет */
+  function renderPrevious(p){
+    const t = T[lang], child = $("#i-child").value.trim(), grade = $("#i-grade").value;
+    $("#r-eyebrow").textContent = child + " \u00b7 " + grade + " " + (lang==="kz"?"сынып":"класс") + " \u00b7 " + D.subject[lang];
+    $("#r-score").textContent = p.score;
+    $("#r-total").textContent = p.total;
+    $("#r-level").textContent = p.level || "";
+    $("#r-leveltxt").textContent = t.againNote.replace("{d}", p.date || "");
+    var fine = document.querySelector('[data-t="resFine"]');
+    if(fine) fine.textContent = t.againFine;
+
+    $("#r-sheet").innerHTML = "";
+    var sheetHead = document.querySelectorAll(".strip-h")[0];
+    $("#r-sheet").closest(".strip").style.display = "none";
+
+    $("#r-blocks").innerHTML = '<div class="brow"><div class="brow-h"><strong>'
+      + (p.blocks || "") + '</strong></div></div>';
+    $("#r-gaps").innerHTML = '<div class="gap good"><h3>' + t.againTitle + '</h3><p>'
+      + t.againText + '</p></div>';
+    $("#r-time").innerHTML = '<div class="tcell"><b class="mono">' + (p.minutes || "\u2014")
+      + '</b><span>' + t.tTotal + ', ' + (lang==="kz"?"минут":"минут") + '</span></div>'
+      + '<div class="tcell"><b class="mono">' + (p.pct || "") + '%</b><span>'
+      + (lang==="kz"?"дұрыс жауап":"верных ответов") + '</span></div>';
+    $("#r-timetxt").textContent = "";
+    const dt = new Date(), pad = n => String(n).padStart(2,"0");
+    $("#foot-id").textContent = pad(dt.getDate()) + "." + pad(dt.getMonth()+1) + "." + dt.getFullYear();
+    afterResult(lang);
+  }
+
   function send(name, digits, r){
     const payload = {
       date: new Date().toISOString(),
@@ -635,6 +748,7 @@ function boot() {
       score: r.correct, total: r.total, level: r.lv.name,
       blocks: r.rank.map(b=>`${b.k} ${b.ok}/${b.ask}`).join("; "),
       timeSec: Math.round(r.ms/1000),
+      away: r.away, awaySec: r.awaySec,
       page: location.pathname
     };
     try{ localStorage.setItem("zd_last_result", JSON.stringify(payload)); }catch(e){}
