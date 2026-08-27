@@ -1,4 +1,3 @@
-
 :root{
   --paper:#FCFCFA;
   --ink:#0A1A0D;
@@ -264,3 +263,10 @@ p{margin:0 0 14px}
 .psg-t{font-family:"Unbounded",sans-serif;font-weight:600;font-size:17px;margin-bottom:8px}
 .psg-i{font-size:13.5px;color:var(--grey);margin-bottom:14px}
 .psg p{font-size:15.5px;line-height:1.6;margin:0 0 12px}
+
+/* ---------- подбрачивание и индексы в формулах ---------- */
+.ub{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .18em}
+.ub-x{border-bottom:1.5px solid currentColor;padding:0 .2em .1em}
+.ub-l{font-size:.62em;color:var(--grey);padding-top:.2em;letter-spacing:.02em}
+.qmath sup,.qmath sub,.cmp-v sup,.cmp-v sub{font-size:.68em;line-height:0}
+.par{font-size:1.55em;line-height:0;vertical-align:-.2em;font-weight:300}
