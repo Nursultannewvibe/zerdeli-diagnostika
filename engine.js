@@ -10,10 +10,64 @@
 var SELF = document.currentScript && document.currentScript.src;
 var BASE = SELF ? SELF.replace(/[^/]+$/, "") : "./";
 
+/* Расписание пробных уроков. Одна площадка — Гагарина 93.
+   Совпадает с RASPISANIE на лендинге пробного урока: правится в обоих местах. */
+var RASP = {
+  3: [{d:1,t:"10:30\u201311:30"},{d:3,t:"15:30\u201316:30"},{d:5,t:"10:30\u201311:30"},{d:6,t:"14:30\u201315:30"}],
+  4: [{d:2,t:"10:30\u201311:30"},{d:4,t:"15:30\u201316:30"},{d:6,t:"10:30\u201311:30"},{d:6,t:"16:30\u201317:30"}],
+  5: [{d:1,t:"15:30\u201316:30"},{d:3,t:"10:30\u201311:30"},{d:5,t:"15:30\u201316:30"},{d:6,t:"12:30\u201313:30"}],
+  6: [{d:2,t:"15:30\u201316:30"},{d:4,t:"10:30\u201311:30"},{d:6,t:"11:30\u201312:30"},{d:6,t:"15:30\u201316:30"}]
+};
+var DNI = {
+  ru:{1:"Понедельник",2:"Вторник",3:"Среда",4:"Четверг",5:"Пятница",6:"Суббота"},
+  kz:{1:"Дүйсенбі",2:"Сейсенбі",3:"Сәрсенбі",4:"Бейсенбі",5:"Жұма",6:"Сенбі"}
+};
+var PRICE = 2490;
+
+/* Блок записи живёт внутри тёмного .cta, поэтому поля там светлые.
+   Стили держим здесь, чтобы правка была в одном файле. */
+var BK_CSS = ""
++ ".cta .bk{margin-top:26px;border-top:1px solid rgba(252,252,250,.25);padding-top:22px}"
++ ".cta .bk .field{margin-bottom:18px}"
++ ".cta .bk label{color:rgba(252,252,250,.6)}"
++ ".cta .bk input,.cta .bk select{color:#FCFCFA;border-bottom-color:rgba(252,252,250,.45)}"
++ ".cta .bk select{background-image:linear-gradient(45deg,transparent 50%,#FCFCFA 50%),linear-gradient(135deg,#FCFCFA 50%,transparent 50%)}"
++ ".cta .bk select option{color:#0A1A0D;background:#FCFCFA}"
++ ".cta .bk input:focus,.cta .bk select:focus{border-bottom-color:var(--lime);box-shadow:0 2px 0 -1px var(--lime)}"
++ ".cta .bk .field.bad input{border-bottom-color:#E3A87A}"
++ ".cta .bk .note{color:rgba(252,252,250,.6)}"
++ ".bk-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}"
++ "@media(max-width:520px){.bk-row{grid-template-columns:1fr;gap:0}}"
++ ".bk-h{font-family:\"JetBrains Mono\",monospace;font-size:11px;font-weight:700;letter-spacing:.16em;"
++ "text-transform:uppercase;color:rgba(252,252,250,.6);margin:6px 0 12px}"
++ ".slots{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}"
++ "@media(max-width:520px){.slots{grid-template-columns:1fr}}"
++ ".slot{display:block;width:100%;text-align:left;font:inherit;font-size:15px;color:#FCFCFA;background:transparent;"
++ "border:1.5px solid rgba(252,252,250,.35);border-radius:0;padding:13px 14px;cursor:pointer;transition:.15s}"
++ ".slot b{display:block;font-weight:600}"
++ ".slot span{display:block;font-family:\"JetBrains Mono\",monospace;font-size:13px;color:rgba(252,252,250,.65);margin-top:3px}"
++ ".slot:hover{border-color:#FCFCFA}"
++ ".slot[aria-pressed=\"true\"]{background:var(--lime);border-color:var(--lime);color:#0A1A0D}"
++ ".slot[aria-pressed=\"true\"] span{color:rgba(10,26,13,.7)}"
++ ".bk-err{color:#E3A87A;font-size:13px;margin:10px 0 0;display:none}"
++ ".bk-err.on{display:block}"
++ ".bk-done{display:none;margin-top:26px;border-top:1px solid rgba(252,252,250,.25);padding-top:22px}"
++ ".bk-done.on{display:block}"
++ ".bk-ok{font-size:17px;color:#FCFCFA;margin:0;line-height:1.5}"
++ ".bk-done .btn{margin-top:18px}";
+
+function bkStyle(){
+  if(document.getElementById("zd-bk-css")) return;
+  var st = document.createElement("style");
+  st.id = "zd-bk-css";
+  st.textContent = BK_CSS;
+  document.head.appendChild(st);
+}
+
 var MOUNT = document.getElementById("zd-app");
 if (!MOUNT) return;                       // на странице нет теста — выходим молча
 
-var MARKUP = "<div class=\"shell\"><header class=\"mast\"><div class=\"brand\">Zerdeli Education<span data-t=\"mastSub\"></span></div><div class=\"langs\"><button type=\"button\" data-lang=\"ru\" aria-pressed=\"true\">RU</button><button type=\"button\" data-lang=\"kz\" aria-pressed=\"false\">KZ</button></div></header><section class=\"screen on\" id=\"s-intro\"><p class=\"eyebrow\" data-t=\"introEyebrow\"></p><h1 data-t=\"introTitle\"></h1><p class=\"lede\" data-t=\"introLede\"></p><div class=\"facts\"><div class=\"fact\"><b class=\"mono\" id=\"f-count\">20</b><span data-t=\"factCount\"></span></div><div class=\"fact\"><b class=\"mono\" id=\"f-time\">25</b><span data-t=\"factTime\"></span></div><div class=\"fact\"><b class=\"mono\">5</b><span data-t=\"factBlocks\"></span></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"whoHead\"></p><div class=\"field\" id=\"fld-child\"><label for=\"i-child\" data-t=\"labChild\"></label><input id=\"i-child\" type=\"text\" autocomplete=\"off\" spellcheck=\"false\"><p class=\"err\" data-t=\"errChild\"></p></div><div class=\"field\"><label for=\"i-grade\" data-t=\"labGrade\"></label><select id=\"i-grade\"><option value=\"5\" selected>5</option><option value=\"6\">6</option></select></div><p class=\"note\" data-t=\"gradeNote\"></p><button class=\"btn\" id=\"go-handoff\" style=\"margin-top:26px\" data-t=\"btnNext\"></button></div></section><section class=\"screen\" id=\"s-handoff\"><p class=\"eyebrow\" data-t=\"handoffEyebrow\"></p><h1 data-t=\"handoffTitle\"></h1><p class=\"lede\" data-t=\"handoffLede\"></p><ul class=\"rules\" id=\"rules\"></ul><button class=\"btn\" id=\"go-test\" style=\"margin-top:28px\" data-t=\"btnStart\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"handoffNote\"></p></section><section class=\"screen\" id=\"s-test\"><div class=\"bar\"><div class=\"bar-top\"><div class=\"counter\"><span data-t=\"wordTask\"></span>&nbsp;<b class=\"mono\" id=\"c-now\">01</b> / <span class=\"mono\" id=\"c-all\">20</span></div><div class=\"clock mono\" id=\"clock\">25:00</div></div><div class=\"sheet\" id=\"sheet\"></div></div><div id=\"q-wrap\"></div><div class=\"btn-row\"><button class=\"btn skip\" id=\"q-skip\" data-t=\"btnSkip\"></button><button class=\"btn\" id=\"q-next\" disabled data-t=\"btnNext\"></button></div></section><section class=\"screen\" id=\"s-lead\"><p class=\"eyebrow\" data-t=\"leadEyebrow\"></p><h1 data-t=\"leadTitle\"></h1><p class=\"lede\" data-t=\"leadLede\"></p><div class=\"strip\" style=\"margin-top:36px\"><div class=\"field\" id=\"fld-name\"><label for=\"i-name\" data-t=\"labParent\"></label><input id=\"i-name\" type=\"text\" autocomplete=\"name\"><p class=\"err\" data-t=\"errName\"></p></div><div class=\"field\" id=\"fld-phone\"><label for=\"i-phone\" data-t=\"labPhone\"></label><input id=\"i-phone\" type=\"tel\" inputmode=\"tel\" autocomplete=\"tel\" placeholder=\"+7 (___) ___-__-__\"><p class=\"err\" data-t=\"errPhone\"></p></div><button class=\"btn\" id=\"go-result\" data-t=\"btnResult\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"leadNote\"></p></div></section><section class=\"screen\" id=\"s-result\"><p class=\"eyebrow\" id=\"r-eyebrow\"></p><h1 data-t=\"resTitle\"></h1><div class=\"verdict\"><div class=\"big mono\"><span id=\"r-score\">0</span><s>/<span id=\"r-total\">20</span></s></div><div class=\"verdict-side\"><span class=\"level\" id=\"r-level\"></span><p id=\"r-leveltxt\"></p></div></div><p class=\"note\" style=\"margin-top:12px\" data-t=\"resFine\"></p><div class=\"strip\"><p class=\"strip-h\" data-t=\"sheetHead\"></p><div class=\"sheet\" id=\"r-sheet\"></div><div class=\"sheet-legend\"><span><em class=\"f\"></em><i style=\"font-style:normal\" data-t=\"legOk\"></i></span><span><em class=\"x\"></em><i style=\"font-style:normal\" data-t=\"legNo\"></i></span><span><em class=\"m\"></em><i style=\"font-style:normal\" data-t=\"legMiss\"></i></span></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"blocksHead\"></p><div class=\"blocks\" id=\"r-blocks\"></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"gapsHead\"></p><div id=\"r-gaps\"></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"timeHead\"></p><div class=\"tgrid\" id=\"r-time\"></div><p class=\"note\" style=\"margin-top:14px\" id=\"r-timetxt\"></p></div><div id=\"r-more\"></div><div class=\"cta\"><h2 data-t=\"ctaTitle\"></h2><p data-t=\"ctaText\"></p><a class=\"btn\" id=\"cta-main\" href=\"#\" data-t=\"ctaBtn\"></a><button class=\"btn ghost\" id=\"cta-print\" data-t=\"ctaPrint\"></button></div><div class=\"foot\"><span data-t=\"footLeft\"></span><span class=\"mono\" id=\"foot-id\"></span></div></section></div>";
+var MARKUP = "<div class=\"shell\"><header class=\"mast\"><div class=\"brand\">Zerdeli Education<span data-t=\"mastSub\"></span></div><div class=\"langs\"><button type=\"button\" data-lang=\"ru\" aria-pressed=\"true\">RU</button><button type=\"button\" data-lang=\"kz\" aria-pressed=\"false\">KZ</button></div></header><section class=\"screen on\" id=\"s-intro\"><p class=\"eyebrow\" data-t=\"introEyebrow\"></p><h1 data-t=\"introTitle\"></h1><p class=\"lede\" data-t=\"introLede\"></p><div class=\"facts\"><div class=\"fact\"><b class=\"mono\" id=\"f-count\">20</b><span data-t=\"factCount\"></span></div><div class=\"fact\"><b class=\"mono\" id=\"f-time\">25</b><span data-t=\"factTime\"></span></div><div class=\"fact\"><b class=\"mono\">5</b><span data-t=\"factBlocks\"></span></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"whoHead\"></p><div class=\"field\" id=\"fld-child\"><label for=\"i-child\" data-t=\"labChild\"></label><input id=\"i-child\" type=\"text\" autocomplete=\"off\" spellcheck=\"false\"><p class=\"err\" data-t=\"errChild\"></p></div><div class=\"field\"><label for=\"i-grade\" data-t=\"labGrade\"></label><select id=\"i-grade\"><option value=\"5\" selected>5</option><option value=\"6\">6</option></select></div><p class=\"note\" data-t=\"gradeNote\"></p><button class=\"btn\" id=\"go-handoff\" style=\"margin-top:26px\" data-t=\"btnNext\"></button></div></section><section class=\"screen\" id=\"s-handoff\"><p class=\"eyebrow\" data-t=\"handoffEyebrow\"></p><h1 data-t=\"handoffTitle\"></h1><p class=\"lede\" data-t=\"handoffLede\"></p><ul class=\"rules\" id=\"rules\"></ul><button class=\"btn\" id=\"go-test\" style=\"margin-top:28px\" data-t=\"btnStart\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"handoffNote\"></p></section><section class=\"screen\" id=\"s-test\"><div class=\"bar\"><div class=\"bar-top\"><div class=\"counter\"><span data-t=\"wordTask\"></span>&nbsp;<b class=\"mono\" id=\"c-now\">01</b> / <span class=\"mono\" id=\"c-all\">20</span></div><div class=\"clock mono\" id=\"clock\">25:00</div></div><div class=\"sheet\" id=\"sheet\"></div></div><div id=\"q-wrap\"></div><div class=\"btn-row\"><button class=\"btn skip\" id=\"q-skip\" data-t=\"btnSkip\"></button><button class=\"btn\" id=\"q-next\" disabled data-t=\"btnNext\"></button></div></section><section class=\"screen\" id=\"s-lead\"><p class=\"eyebrow\" data-t=\"leadEyebrow\"></p><h1 data-t=\"leadTitle\"></h1><p class=\"lede\" data-t=\"leadLede\"></p><div class=\"strip\" style=\"margin-top:36px\"><div class=\"field\" id=\"fld-name\"><label for=\"i-name\" data-t=\"labParent\"></label><input id=\"i-name\" type=\"text\" autocomplete=\"name\"><p class=\"err\" data-t=\"errName\"></p></div><div class=\"field\" id=\"fld-phone\"><label for=\"i-phone\" data-t=\"labPhone\"></label><input id=\"i-phone\" type=\"tel\" inputmode=\"tel\" autocomplete=\"tel\" placeholder=\"+7 (___) ___-__-__\"><p class=\"err\" data-t=\"errPhone\"></p></div><button class=\"btn\" id=\"go-result\" data-t=\"btnResult\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"leadNote\"></p></div></section><section class=\"screen\" id=\"s-result\"><p class=\"eyebrow\" id=\"r-eyebrow\"></p><h1 data-t=\"resTitle\"></h1><div class=\"verdict\"><div class=\"big mono\"><span id=\"r-score\">0</span><s>/<span id=\"r-total\">20</span></s></div><div class=\"verdict-side\"><span class=\"level\" id=\"r-level\"></span><p id=\"r-leveltxt\"></p></div></div><p class=\"note\" style=\"margin-top:12px\" data-t=\"resFine\"></p><div class=\"strip\"><p class=\"strip-h\" data-t=\"sheetHead\"></p><div class=\"sheet\" id=\"r-sheet\"></div><div class=\"sheet-legend\"><span><em class=\"f\"></em><i style=\"font-style:normal\" data-t=\"legOk\"></i></span><span><em class=\"x\"></em><i style=\"font-style:normal\" data-t=\"legNo\"></i></span><span><em class=\"m\"></em><i style=\"font-style:normal\" data-t=\"legMiss\"></i></span></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"blocksHead\"></p><div class=\"blocks\" id=\"r-blocks\"></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"gapsHead\"></p><div id=\"r-gaps\"></div></div><div class=\"strip\"><p class=\"strip-h\" data-t=\"timeHead\"></p><div class=\"tgrid\" id=\"r-time\"></div><p class=\"note\" style=\"margin-top:14px\" id=\"r-timetxt\"></p></div><div id=\"r-more\"></div><div class=\"cta\"><h2 data-t=\"ctaTitle\"></h2><p data-t=\"ctaText\"></p><div class=\"bk\" id=\"bk\"><p class=\"bk-h\" data-t=\"bkHead\"></p><div class=\"bk-row\"><div class=\"field\"><label for=\"bk-grade\" data-t=\"bkClass\"></label><select id=\"bk-grade\"></select></div><div class=\"field\"><label for=\"bk-lang\" data-t=\"bkLangL\"></label><select id=\"bk-lang\"><option value=\"kz\">Қазақша</option><option value=\"ru\">Русский</option></select></div></div><p class=\"bk-h\" data-t=\"bkSlot\"></p><div class=\"slots\" id=\"bk-slots\"></div><p class=\"bk-err\" id=\"bk-slot-err\" data-t=\"bkSlotErr\"></p><div class=\"field\" id=\"bk-fld-phone\" style=\"margin-top:22px\"><label for=\"bk-phone\" data-t=\"bkPhone\"></label><input id=\"bk-phone\" type=\"tel\" inputmode=\"tel\" autocomplete=\"tel\" placeholder=\"+7 (___) ___-__-__\"><p class=\"err\" data-t=\"errPhone\"></p></div><button class=\"btn\" id=\"bk-go\" data-t=\"bkBtn\"></button><p class=\"note\" style=\"margin-top:14px\" data-t=\"bkNote\"></p></div><div class=\"bk-done\" id=\"bk-done\"><p class=\"bk-ok\" id=\"bk-ok\"></p><a class=\"btn\" id=\"bk-wa\" href=\"#\" target=\"_blank\" rel=\"noopener\" data-t=\"bkWa\"></a></div><button class=\"btn ghost\" id=\"cta-print\" data-t=\"ctaPrint\"></button></div><div class=\"foot\"><span data-t=\"footLeft\"></span><span class=\"mono\" id=\"foot-id\"></span></div></section></div>";
 
 function get(path) {
   return fetch(BASE + path, { cache: "no-cache" }).then(function (r) {
@@ -53,6 +107,7 @@ Promise.all([get("config.json"), get("subjects.json")])
       window.__ZD_REG__ = reg.subjects;
       window.__ZD_PICK__ = pick;
 
+      bkStyle();
       MOUNT.innerHTML = MARKUP;
       boot();
     });
@@ -150,6 +205,17 @@ function boot() {
     ctaText:"Экран показывает результат. Он не показывает, как ребёнок учится: что схватывает с первого раза, а что приходится объяснять дважды. Это видно за один час живой работы. Пробный урок — 60 минут: тест, занятие по теме своего класса, снова тест. Уходите с листом «было — стало» и картой пробелов на руках. 2 490 ₸, Гагарина 93, угол Құрманғазы.",
     ctaBtn:"Записаться на пробный урок — 2 490 ₸",
     ctaPrint:"Сохранить разбор в PDF",
+    bkHead:"Записаться на пробный урок — 2 490 ₸",
+    bkClass:"Класс ребёнка",
+    bkLangL:"Язык группы",
+    bkSlot:"День и время",
+    bkSlotErr:"Выберите день и время",
+    bkPhone:"Телефон для счёта",
+    bkBtn:"Записаться — выставим счёт",
+    bkNote:"Гагарина 93, угол Құрманғазы. Менеджер выставит счёт на 2 490 ₸ и подтвердит место в WhatsApp. Оплата закрепляет место: в группе 15 мест.",
+    bkOk:"Заявка принята. Менеджер выставит счёт на 2 490 ₸ и подтвердит место в WhatsApp.",
+    bkFail:"Заявка могла не уйти. Напишите нам в WhatsApp — запишем вручную.",
+    bkWa:"Написать в WhatsApp",
     footLeft:"Zerdeli Education · Алматы",
     levelsKz:null
   },
@@ -228,6 +294,17 @@ function boot() {
     ctaText:"Экран нәтижені көрсетеді. Ал баланың қалай үйренетінін көрсетпейді: нені бірден ұғады, нені екі рет түсіндіру керек. Мұны бір сағаттық тірі жұмыстан көресіз. Сынақ сабақ — 60 минут: тест, өз сыныбының тақырыбы бойынша сабақ, тағы тест. Қолыңызға «болды — болды» парағы мен олқылықтар картасы тиеді. 2 490 ₸, Гагарин 93, Құрманғазы қиылысы.",
     ctaBtn:"Сынақ сабаққа жазылу — 2 490 ₸",
     ctaPrint:"Талдауды PDF-ке сақтау",
+    bkHead:"Сынақ сабаққа жазылу — 2 490 ₸",
+    bkClass:"Баланың сыныбы",
+    bkLangL:"Топ тілі",
+    bkSlot:"Күні мен уақыты",
+    bkSlotErr:"Күні мен уақытын таңдаңыз",
+    bkPhone:"Шот үшін телефон",
+    bkBtn:"Жазылу — шот жібереміз",
+    bkNote:"Гагарин 93, Құрманғазы қиылысы. Менеджер 2 490 ₸ шот жібереді, орынды WhatsApp арқылы растайды. Төлем орынды бекітеді: топта 15 орын.",
+    bkOk:"Өтінім қабылданды. Менеджер 2 490 ₸ шот жібереді және орынды WhatsApp арқылы растайды.",
+    bkFail:"Өтінім кетпеген болуы мүмкін. WhatsApp-қа жазыңыз — қолмен жазып қоямыз.",
+    bkWa:"WhatsApp-қа жазу",
     footLeft:"Zerdeli Education · Алматы",
     levelsKz:null
   }
@@ -396,7 +473,9 @@ function boot() {
     $("#f-count").textContent = CONFIG.askCount;
     $("#f-time").textContent = Math.round(D.timeLimitSec / 60);
     $("#c-all").textContent = String(CONFIG.askCount).padStart(2,"0");
-    $("#cta-main").href = lang === "kz" ? CONFIG.ctaUrlKz : CONFIG.ctaUrl;
+    var cm = $("#cta-main");
+    if(cm) cm.href = lang === "kz" ? CONFIG.ctaUrlKz : CONFIG.ctaUrl;
+    bkSlots();
     subjectPicker(lang);
     if($("#s-result").classList.contains("on") && lastResult) render(lastResult);
     if(!$("#s-test").classList.contains("on")) return;
@@ -676,12 +755,161 @@ function boot() {
       ? "Бағалау " + (D.totalQuestions || r.total) + " тапсырманың " + r.total + "-сы бойынша. Бұл — бүгінгі қима, түпкілікті үкім емес: бір айлық сабақтан кейін көрініс өзгереді."
       : "Оценка по " + r.total + " задачам из банка в " + (D.totalQuestions || r.total) + ". Это срез на сегодня, а не приговор: через месяц занятий картина меняется.";
     afterResult(lang);
+    bkInit();
     $("#r-timetxt").textContent = r.away
       ? t.awayOne
       : (r.fast >= 2 ? t.timeTextFast : (r.slow >= 3 ? t.timeTextSlow : t.timeTextOk));
   }
 
   $("#cta-print").addEventListener("click", ()=>window.print());
+
+  /* ---- запись на пробный урок ----
+     Форма живёт на экране разбора: родитель уже видит, где провалы,
+     и здесь же выбирает день. Телефон подставляем тот, что он дал
+     перед результатом, — его же менеджер берёт для счёта. */
+  var bkReady = false, bkPick = null, bkLangTouched = false;
+
+  function bkMask(el){
+    el.addEventListener("input", function(){
+      var d = el.value.replace(/\D/g,"");
+      if(d.charAt(0) === "8") d = "7" + d.slice(1);
+      if(d.charAt(0) !== "7") d = "7" + d;
+      d = d.slice(0,11);
+      var out = "+7";
+      if(d.length>1) out += " (" + d.slice(1,4);
+      if(d.length>=5) out += ") " + d.slice(4,7);
+      if(d.length>=8) out += "-" + d.slice(7,9);
+      if(d.length>=10) out += "-" + d.slice(9,11);
+      el.value = out;
+      $("#bk-fld-phone").classList.remove("bad");
+    });
+  }
+
+  /* Список классов — только те, где урок реально идёт.
+     Класс из теста подставляем, но менять его можно. */
+  function bkGrades(){
+    var sel = $("#bk-grade");
+    if(!sel || sel.options.length) return;
+    var cur = $("#i-grade") ? $("#i-grade").value : "5";
+    var html = "";
+    for(var g = 3; g <= 6; g++){
+      html += '<option value="' + g + '"' + (String(g) === String(cur) ? " selected" : "") + ">" + g + "</option>";
+    }
+    sel.innerHTML = html;
+  }
+
+  function bkSlots(){
+    var box = $("#bk-slots");
+    if(!box) return;
+    var lgSel = $("#bk-lang");
+    if(lgSel && !bkLangTouched) lgSel.value = lang;
+    var g = ($("#bk-grade") && $("#bk-grade").value) || "5";
+    var list = RASP[g] || [];
+    box.innerHTML = list.map(function(sl, i){
+      return '<button type="button" class="slot" data-i="' + i + '" aria-pressed="'
+        + (bkPick === i) + '"><b>' + DNI[lang][sl.d] + "</b><span>" + sl.t + "</span></button>";
+    }).join("");
+    box.querySelectorAll(".slot").forEach(function(b){
+      b.addEventListener("click", function(){
+        bkPick = Number(b.dataset.i);
+        box.querySelectorAll(".slot").forEach(function(x){
+          x.setAttribute("aria-pressed", String(Number(x.dataset.i) === bkPick));
+        });
+        var e = $("#bk-slot-err");
+        if(e) e.classList.remove("on");
+      });
+    });
+  }
+
+  function bkInit(){
+    if(bkReady){ bkSlots(); return; }
+    bkReady = true;
+    bkGrades();
+    var lg = $("#bk-lang");
+    if(lg){
+      lg.value = lang;
+      lg.addEventListener("change", function(){ bkLangTouched = true; });
+    }
+    var ph = $("#bk-phone"), src = $("#i-phone");
+    if(ph){
+      bkMask(ph);
+      if(src && src.value) ph.value = src.value;
+    }
+    var gr = $("#bk-grade");
+    if(gr) gr.addEventListener("change", function(){ bkPick = null; bkSlots(); });
+    var go = $("#bk-go");
+    if(go) go.addEventListener("click", bkSend);
+    bkSlots();
+  }
+
+  function bkSend(){
+    var ph = $("#bk-phone");
+    var digits = ph.value.replace(/\D/g,"");
+    var okPhone = digits.length === 11 && digits.charAt(0) === "7";
+    $("#bk-fld-phone").classList.toggle("bad", !okPhone);
+    if(bkPick === null){
+      $("#bk-slot-err").classList.add("on");
+      return $("#bk-slots").scrollIntoView({block:"center", behavior:"smooth"});
+    }
+    if(!okPhone) return ph.focus();
+
+    var g = $("#bk-grade").value;
+    var sl = (RASP[g] || [])[bkPick] || {d:0, t:""};
+    var groupLang = $("#bk-lang").value;
+    var child = $("#i-child").value.trim();
+    var parent = $("#i-name").value.trim();
+    var t = T[lang];
+
+    /* Поля намеренно названы не так, как у результата теста:
+       иначе приёмник принял бы запись за ещё один результат. */
+    var payload = {
+      form: "probny-urok",
+      date: new Date().toISOString(),
+      parent: parent,
+      phone: "+" + digits,
+      child: child,
+      gradeUrok: g,
+      day: DNI.ru[sl.d],
+      time: sl.t,
+      groupLang: groupLang === "kz" ? "казахская" : "русская",
+      price: PRICE,
+      fromSubject: CONFIG.subject,
+      fromScore: lastResult ? lastResult.correct : "",
+      fromAsked: lastResult ? lastResult.total : "",
+      lang: lang,
+      page: location.pathname
+    };
+
+    var go = $("#bk-go");
+    go.disabled = true;
+
+    var msg = (lang === "kz"
+        ? "Сәлеметсіз бе! Сынақ сабаққа жазылғым келеді."
+        : "Здравствуйте! Хочу записаться на пробный урок.")
+      + "\n" + (child || parent) + ", " + g + (lang === "kz" ? " сынып" : " класс")
+      + "\n" + DNI[lang][sl.d] + ", " + sl.t
+      + "\n" + (groupLang === "kz"
+        ? (lang === "kz" ? "қазақ тобы" : "казахская группа")
+        : (lang === "kz" ? "орыс тобы" : "русская группа"))
+      + "\n+" + digits;
+    var wa = $("#bk-wa");
+    if(wa && CONFIG.whatsapp){
+      wa.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+    }
+
+    function done(ok){
+      $("#bk-ok").textContent = ok ? t.bkOk : t.bkFail;
+      $("#bk").style.display = "none";
+      $("#bk-done").classList.add("on");
+      $("#bk-done").scrollIntoView({block:"center", behavior:"smooth"});
+    }
+
+    if(!CONFIG.endpoint){ done(false); return; }
+    fetch(CONFIG.endpoint, {method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify(payload)})
+      .then(function(){ done(true); })
+      .catch(function(){ done(false); });
+  }
 
   /* ---- отправка заявки ---- */
   /* Спрашиваем таблицу, проходил ли этот номер этот предмет.
@@ -737,6 +965,7 @@ function boot() {
     const dt = new Date(), pad = n => String(n).padStart(2,"0");
     $("#foot-id").textContent = pad(dt.getDate()) + "." + pad(dt.getMonth()+1) + "." + dt.getFullYear();
     afterResult(lang);
+    bkInit();
   }
 
   function send(name, digits, r){
